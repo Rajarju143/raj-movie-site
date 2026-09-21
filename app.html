@@ -1,1 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>RAJ MOVIES</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #080808;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      min-height: 100vh;
+    }
+
+    /* TOP BAR */
+    .topbar {
+      height: 70px;
+      padding: 0 35px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(8, 8, 8, 0.92);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(15px);
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #e50914;
+    }
+
+    .nav {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .nav a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 14px;
+      transition: 0.25s;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: #fff;
+    }
+
+    .profile {
+      width: 35px;
+      height: 35px;
+      border-radius: 8px;
+      background: #e50914;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 570px;
+      padding: 100px 6%;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+
+      background:
+        linear-gradient(90deg, #080808 0%, rgba(8,8,8,.88) 38%, rgba(8,8,8,.25) 75%, #080808 100%),
+        radial-gradient(circle at 75% 45%, rgba(229,9,20,.38), transparent 38%);
+    }
+
+    .hero-content {
+      max-width: 650px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .tag {
+      color: #e50914;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(50px, 8vw, 92px);
+      line-height: .88;
+      font-weight: 900;
+      letter-spacing: -4px;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 span {
+      color: #e50914;
+    }
+
+    .hero p {
+      color: #aaa;
+      line-height: 1.7;
+      max-width: 570px;
+      font-size: 15px;
+      margin-bottom: 28px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      border: 0;
+      padding: 13px 22px;
+      border-radius: 5px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .play {
+      background: #fff;
+      color: #000;
+    }
+
+    .info {
+      background: rgba(255,255,255,.12);
+      color: #fff;
+    }
+
+    /* SECTIONS */
+    .section {
+      padding: 30px 5%;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .section-title h2 {
+      font-size: 22px;
+    }
+
+    .section-title span {
+      color: #777;
+      font-size: 13px;
+    }
+
+    .movies {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 15px;
+    }
+
+    .movie {
+      height: 270px;
+      border-radius: 7px;
+      overflow: hidden;
+      position: relative;
+      background:
+        linear-gradient(145deg, #1d1d1d, #090909);
+      border: 1px solid rgba(255,255,255,.06);
+      transition: .3s;
+    }
+
+    .movie:hover {
+      transform: translateY(-7px) scale(1.02);
+      border-color: rgba(229,9,20,.5);
+    }
+
+    .movie-number {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      background: #e50914;
+      padding: 5px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .movie-info {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+    }
+
+    .movie-info h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .movie-info p {
+      color: #888;
+      font-size: 11px;
+    }
+
+    /* BOTTOM NAV */
+    .bottom-nav {
+      display: none;
+    }
+
+    /* MOBILE */
+    @media (max-width: 700px) {
+
+      .topbar {
+        height: 62px;
+        padding: 0 18px;
+      }
+
+      .logo {
+        font-size: 20px;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .hero {
+        min-height: 570px;
+        padding: 80px 20px 55px;
+      }
+
+      .hero h1 {
+        font-size: 55px;
+        letter-spacing: -3px;
+      }
+
+      .hero p {
+        font-size: 13px;
+      }
+
+      .buttons {
+        width: 100%;
+      }
+
+      .btn {
+        flex: 1;
+      }
+
+      .section {
+        padding: 25px 16px;
+      }
+
+      .movies {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .movie {
+        height: 235px;
+      }
+
+      .bottom-nav {
+        position: fixed;
+        display: flex;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 65px;
+        background: rgba(10,10,10,.96);
+        border-top: 1px solid rgba(255,255,255,.08);
+        z-index: 200;
+        justify-content: space-around;
+        align-items: center;
+        backdrop-filter: blur(18px);
+      }
+
+      .bottom-nav a {
+        color: #777;
+        text-decoration: none;
+        font-size: 11px;
+        text-align: center;
+      }
+
+      .bottom-nav a.active {
+        color: #fff;
+      }
+
+      .bottom-nav b {
+        display: block;
+        font-size: 18px;
+        margin-bottom: 3px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+
+    <div class="logo">
+      RAJ <span>MOVIES</span>
+    </div>
+
+    <nav class="nav">
+      <a href="#" class="active">Home</a>
+      <a href="#">Trending</a>
+      <a href="#">Movies</a>
+      <a href="#">Genres</a>
+    </nav>
+
+    <div class="profile">R</div>
+
+  </header>
+
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <div class="tag">
+        RAJ MOVIES ORIGINAL
+      </div>
+
+      <h1>
+        THE LAST<br>
+        <span>JOURNEY</span>
+      </h1>
+
+      <p>
+        Experience premium cinematic entertainment.
+        Discover stories, movies and unforgettable
+        moments — all in one place.
+      </p>
+
+      <div class="buttons">
+        <button class="btn play">▶ Play</button>
+        <button class="btn info">ⓘ More Info</button>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- TRENDING -->
+  <section class="section">
+
+    <div class="section-title">
+      <h2>Trending Now</h2>
+      <span>View All</span>
+    </div>
+
+    <div class="movies">
+
+      <div class="movie">
+        <div class="movie-number">01</div>
+        <div class="movie-info">
+          <h3>The Last Journey</h3>
+          <p>2026 • 2h 18m • HD</p>
+        </div>
+      </div>
+
+      <div class="movie">
+        <div class="movie-number">02</div>
+        <div class="movie-info">
+          <h3>Midnight City</h3>
+          <p>2026 • 1h 54m • HD</p>
+        </div>
+      </div>
+
+      <div class="movie">
+        <div class="movie-number">03</div>
+        <div class="movie-info">
+          <h3>Beyond Time</h3>
+          <p>2025 • 2h 05m • 4K</p>
+        </div>
+      </div>
+
+      <div class="movie">
+        <div class="movie-number">04</div>
+        <div class="movie-info">
+          <h3>Dark Horizon</h3>
+          <p>2026 • 2h 11m • HD</p>
+        </div>
+      </div>
+
+      <div class="movie">
+        <div class="movie-number">05</div>
+        <div class="movie-info">
+          <h3>Empire</h3>
+          <p>2025 • 2h 20m • HD</p>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- BOTTOM MOBILE NAV -->
+  <nav class="bottom-nav">
+
+    <a href="#" class="active">
+      <b>⌂</b>
+      Home
+    </a>
+
+    <a href="#">
+      <b>⌕</b>
+      Search
+    </a>
+
+    <a href="#">
+      <b>＋</b>
+      My List
+    </a>
+
+    <a href="#">
+      <b>●</b>
+      Profile
+    </a>
+
+  </nav>
+
+</body>
+</html>
