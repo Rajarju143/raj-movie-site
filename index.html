@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Raj Movies</title>
+
+  <title>RAJ MOVIES — Premium Cinema</title>
+
+  <meta
+    name="description"
+    content="RAJ MOVIES — Premium cinematic movie discovery platform."
+  >
 
   <style>
     * {
@@ -14,12 +20,14 @@
 
     :root {
       --bg: #050505;
-      --card: #101010;
-      --white: #fff;
-      --muted: #a5a5a5;
-      --gold: #d7b46a;
+      --bg-soft: #0b0b0b;
+      --card: #111111;
+      --text: #ffffff;
+      --muted: #a7a7a7;
       --red: #e50914;
-      --border: rgba(255,255,255,.10);
+      --red-dark: #a80710;
+      --gold: #d9b56d;
+      --border: rgba(255,255,255,.09);
     }
 
     html {
@@ -27,49 +35,64 @@
     }
 
     body {
-      background: var(--bg);
-      color: var(--white);
+      background:
+        radial-gradient(circle at 50% -20%, rgba(229,9,20,.12), transparent 35%),
+        #050505;
+      color: white;
       font-family: Arial, Helvetica, sans-serif;
       overflow-x: hidden;
     }
 
-    button {
+    button,
+    input {
       font: inherit;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
     }
 
     /* =========================
        NAVBAR
-    ========================= */
+    ========================== */
 
     .navbar {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
+      right: 0;
       height: 74px;
       z-index: 1000;
+
       display: flex;
       align-items: center;
+      justify-content: space-between;
+
       padding: 0 5%;
+
       transition: .3s ease;
-      background: linear-gradient(
-        to bottom,
-        rgba(0,0,0,.92),
-        transparent
-      );
+
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(0,0,0,.92),
+          rgba(0,0,0,.55),
+          transparent
+        );
     }
 
     .navbar.scrolled {
-      background: rgba(5,5,5,.95);
+      background: rgba(5,5,5,.96);
       backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border);
     }
 
     .logo {
-      font-size: 24px;
+      font-size: 25px;
       font-weight: 900;
-      letter-spacing: -1px;
-      margin-right: 42px;
+      letter-spacing: 2px;
+      color: white;
       white-space: nowrap;
     }
 
@@ -79,12 +102,14 @@
 
     .nav-links {
       display: flex;
-      gap: 27px;
-      list-style: none;
+      align-items: center;
+      gap: 28px;
+      margin-left: 40px;
+      margin-right: auto;
     }
 
     .nav-links a {
-      color: #ddd;
+      color: #d5d5d5;
       text-decoration: none;
       font-size: 14px;
       transition: .25s;
@@ -95,159 +120,163 @@
     }
 
     .nav-right {
-      margin-left: auto;
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 16px;
     }
 
     .search-btn {
-      border: 0;
-      background: transparent;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
       color: white;
-      font-size: 22px;
-      cursor: pointer;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.1);
+      transition: .25s;
+    }
+
+    .search-btn:hover {
+      background: var(--red);
+      transform: scale(1.05);
     }
 
     .avatar {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-      background: linear-gradient(135deg,#e50914,#850008);
-      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-weight: bold;
+      font-size: 14px;
+
+      background:
+        linear-gradient(135deg, #333, #111);
+
+      border: 1px solid rgba(255,255,255,.18);
     }
 
     /* =========================
        HERO
-    ========================= */
+    ========================== */
 
     .hero {
-      min-height: 760px;
+      min-height: 720px;
       position: relative;
+
       display: flex;
       align-items: center;
-      padding: 120px 5% 80px;
+
+      padding: 120px 7% 80px;
+
       overflow: hidden;
     }
 
-    .hero::after {
-      content: "";
+    .hero-bg {
       position: absolute;
       inset: 0;
+
       background:
         linear-gradient(
           90deg,
           #050505 0%,
-          rgba(5,5,5,.82) 30%,
-          rgba(5,5,5,.25) 65%,
-          #050505 100%
+          rgba(5,5,5,.88) 28%,
+          rgba(5,5,5,.40) 60%,
+          rgba(5,5,5,.15) 100%
         ),
         linear-gradient(
           0deg,
           #050505 0%,
-          transparent 30%
+          transparent 35%,
+          rgba(0,0,0,.3) 100%
+        ),
+        radial-gradient(
+          circle at 75% 42%,
+          rgba(150,30,40,.35),
+          transparent 25%
         );
-      z-index: 2;
+
+      z-index: -1;
     }
 
     .hero-art {
       position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(
-          circle at 70% 45%,
-          rgba(210,80,35,.7),
-          transparent 20%
-        ),
-        radial-gradient(
-          circle at 82% 35%,
-          rgba(120,30,20,.75),
-          transparent 24%
-        ),
-        linear-gradient(
-          135deg,
-          #151515,
-          #2c0805 45%,
-          #080808
-        );
-    }
+      right: 0;
+      top: 0;
+      width: 58%;
+      height: 100%;
 
-    .hero-art::before {
-      content: "";
-      position: absolute;
-      width: 430px;
-      height: 620px;
-      right: 11%;
-      top: 8%;
-      border-radius: 45% 55% 50% 40%;
-      transform: rotate(12deg);
       background:
-        linear-gradient(
-          145deg,
-          rgba(255,210,145,.8),
-          rgba(110,25,12,.9) 35%,
-          rgba(10,10,10,.95) 75%
+        radial-gradient(
+          circle at 60% 45%,
+          rgba(229,9,20,.45),
+          transparent 18%
+        ),
+        radial-gradient(
+          circle at 75% 30%,
+          rgba(100,80,120,.32),
+          transparent 25%
         );
-      box-shadow: 0 0 100px rgba(255,80,20,.22);
+
+      opacity: .8;
+      z-index: -2;
     }
 
     .hero-art::after {
-      content: "RAJ MOVIES";
+      content: "";
       position: absolute;
-      right: 7%;
-      bottom: 17%;
-      font-size: clamp(40px,7vw,110px);
-      font-weight: 900;
-      letter-spacing: -5px;
-      color: rgba(255,255,255,.055);
-      transform: rotate(-8deg);
+      inset: 0;
+
+      background:
+        linear-gradient(
+          90deg,
+          #050505,
+          transparent 40%
+        );
     }
 
     .hero-content {
-      position: relative;
-      z-index: 3;
-      max-width: 650px;
+      max-width: 610px;
     }
 
     .eyebrow {
       color: var(--gold);
-      letter-spacing: 5px;
       font-size: 12px;
+      letter-spacing: 4px;
       font-weight: 700;
       margin-bottom: 18px;
     }
 
     .hero h1 {
-      font-size: clamp(52px,7vw,94px);
+      font-size: clamp(48px, 7vw, 92px);
       line-height: .9;
-      letter-spacing: -5px;
-      margin-bottom: 26px;
+      letter-spacing: -4px;
+      margin-bottom: 22px;
     }
 
-    .meta {
+    .hero-meta {
       display: flex;
+      gap: 13px;
       align-items: center;
-      gap: 14px;
+      flex-wrap: wrap;
       color: #ddd;
       font-size: 14px;
-      margin-bottom: 18px;
-      flex-wrap: wrap;
+      margin-bottom: 20px;
     }
 
     .rating {
-      color: #ffd45b;
+      color: #ffd76a;
       font-weight: bold;
     }
 
-    .hero p {
-      color: #c6c6c6;
+    .hero-description {
+      color: #c3c3c3;
+      font-size: 16px;
       line-height: 1.7;
-      font-size: 15px;
-      max-width: 590px;
-      margin-bottom: 28px;
+      max-width: 570px;
+      margin-bottom: 30px;
     }
 
     .hero-buttons {
@@ -257,24 +286,27 @@
     }
 
     .btn {
-      border: 0;
-      border-radius: 7px;
-      padding: 13px 23px;
-      cursor: pointer;
-      font-weight: 800;
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: 6px;
+
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 9px;
-      transition: .25s;
-    }
 
-    .btn:hover {
-      transform: translateY(-2px);
+      font-weight: 700;
+      transition: .25s;
     }
 
     .btn-primary {
       background: white;
       color: black;
+    }
+
+    .btn-primary:hover {
+      background: #e5e5e5;
+      transform: translateY(-2px);
     }
 
     .btn-dark {
@@ -284,491 +316,608 @@
       backdrop-filter: blur(10px);
     }
 
-    /* =========================
-       CONTENT
-    ========================= */
-
-    .content {
-      position: relative;
-      z-index: 5;
-      margin-top: -70px;
-      padding-bottom: 70px;
+    .btn-dark:hover {
+      background: rgba(255,255,255,.2);
+      transform: translateY(-2px);
     }
+
+    /* =========================
+       SECTIONS
+    ========================== */
 
     .section {
-      padding: 30px 5%;
+      padding: 10px 5% 35px;
+      position: relative;
     }
 
-    .section-head {
+    .section-header {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       margin-bottom: 17px;
     }
 
-    .section h2 {
+    .section-title {
       font-size: 23px;
-      letter-spacing: -.5px;
+      font-weight: 800;
+    }
+
+    .section-title span {
+      color: var(--red);
     }
 
     .view-all {
-      color: #aaa;
+      color: #999;
       font-size: 13px;
       cursor: pointer;
     }
 
+    .view-all:hover {
+      color: white;
+    }
+
+    /* =========================
+       MOVIE ROW
+    ========================== */
+
     .movie-row {
       display: grid;
-      grid-template-columns: repeat(5,1fr);
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 15px;
     }
 
     .movie-card {
       position: relative;
-      height: 285px;
-      border-radius: 10px;
+      aspect-ratio: 2 / 3;
+
       overflow: hidden;
+      border-radius: 8px;
+
+      background: #151515;
+      border: 1px solid rgba(255,255,255,.06);
+
       cursor: pointer;
-      background: #111;
-      border: 1px solid transparent;
-      transition: .3s ease;
+
+      transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease;
     }
 
     .movie-card:hover {
-      transform: translateY(-7px) scale(1.015);
-      border-color: rgba(255,255,255,.18);
-      box-shadow: 0 20px 50px rgba(0,0,0,.55);
+      transform: translateY(-8px) scale(1.025);
+      box-shadow:
+        0 20px 50px rgba(0,0,0,.7),
+        0 0 35px rgba(229,9,20,.14);
+      border-color: rgba(229,9,20,.45);
+      z-index: 3;
     }
 
-    .poster {
-      position: absolute;
-      inset: 0;
+    .movie-poster {
       width: 100%;
       height: 100%;
-    }
-
-    .poster svg {
-      width: 100%;
-      height: 100%;
+      object-fit: cover;
       display: block;
+
+      transition: transform .5s ease;
     }
 
-    .card-gradient {
+    .movie-card:hover .movie-poster {
+      transform: scale(1.07);
+    }
+
+    .poster-fallback {
       position: absolute;
       inset: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      padding: 25px;
+
       background:
+        radial-gradient(
+          circle at 50% 20%,
+          rgba(229,9,20,.45),
+          transparent 35%
+        ),
         linear-gradient(
-          0deg,
-          rgba(0,0,0,.96),
-          transparent 55%
+          145deg,
+          #262626,
+          #090909
         );
     }
 
-    .card-info {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      padding: 18px;
+    .poster-fallback strong {
+      font-size: 22px;
+      line-height: 1.1;
+      letter-spacing: 1px;
     }
 
-    .card-info h3 {
-      font-size: 17px;
-      margin-bottom: 7px;
-    }
-
-    .card-meta {
+    .poster-fallback small {
+      display: block;
+      margin-top: 8px;
       color: #aaa;
-      font-size: 11px;
+      letter-spacing: 2px;
+    }
+
+    .movie-overlay {
+      position: absolute;
+      inset: 0;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+
+      padding: 17px;
+
+      background:
+        linear-gradient(
+          transparent 25%,
+          rgba(0,0,0,.25) 45%,
+          rgba(0,0,0,.95) 100%
+        );
+    }
+
+    .movie-info {
+      transform: translateY(4px);
+    }
+
+    .movie-title {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .movie-meta {
       display: flex;
       gap: 8px;
+      color: #cfcfcf;
+      font-size: 11px;
+      align-items: center;
+      flex-wrap: wrap;
     }
 
-    .card-rating {
-      color: #ffd35a;
+    .movie-rating {
+      color: #ffd35e;
+      font-weight: 700;
+    }
+
+    .badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+
+      padding: 5px 8px;
+      border-radius: 4px;
+
+      background: rgba(229,9,20,.92);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 1px;
     }
 
     /* =========================
        FEATURE
-    ========================= */
+    ========================== */
 
-    .original {
+    .feature {
       margin: 35px 5%;
       min-height: 300px;
-      border-radius: 18px;
-      overflow: hidden;
+
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 12px;
+
       position: relative;
-      display: flex;
-      align-items: center;
-      padding: 45px;
+      overflow: hidden;
+
       background:
         radial-gradient(
-          circle at 75% 50%,
-          #3d1e06,
-          transparent 35%
+          circle at 75% 40%,
+          rgba(229,9,20,.25),
+          transparent 28%
         ),
         linear-gradient(
-          120deg,
-          #0c0c0c,
-          #19130c
+          110deg,
+          #151515,
+          #080808
         );
-      border: 1px solid var(--border);
     }
 
-    .original::after {
-      content: "RAJ MOVIES";
-      position: absolute;
-      right: 5%;
-      font-size: 95px;
-      font-weight: 900;
-      color: rgba(255,255,255,.035);
+    .feature-content {
+      padding: 55px 6%;
+      max-width: 650px;
     }
 
-    .original-content {
-      position: relative;
-      z-index: 2;
-      max-width: 500px;
-    }
-
-    .original-label {
-      color: var(--gold);
-      letter-spacing: 4px;
+    .feature-label {
+      color: var(--red);
       font-size: 11px;
-      margin-bottom: 12px;
-      font-weight: bold;
+      font-weight: 800;
+      letter-spacing: 3px;
+      margin-bottom: 13px;
     }
 
-    .original h2 {
-      font-size: 42px;
-      margin-bottom: 12px;
+    .feature h2 {
+      font-size: clamp(30px, 4vw, 50px);
+      margin-bottom: 13px;
     }
 
-    .original p {
+    .feature p {
       color: #aaa;
-      line-height: 1.6;
+      line-height: 1.7;
       margin-bottom: 20px;
     }
 
     /* =========================
        GENRES
-    ========================= */
+    ========================== */
 
     .genre-row {
       display: grid;
-      grid-template-columns: repeat(4,1fr);
-      gap: 15px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
     }
 
     .genre {
-      min-height: 115px;
-      border-radius: 13px;
+      height: 105px;
+      border-radius: 9px;
+
       display: flex;
       align-items: flex-end;
+
       padding: 18px;
-      cursor: pointer;
-      overflow: hidden;
+
       position: relative;
-      border: 1px solid var(--border);
+      overflow: hidden;
+
+      cursor: pointer;
+
+      border: 1px solid rgba(255,255,255,.08);
+
+      transition: .3s;
+    }
+
+    .genre:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,.22);
+    }
+
+    .genre::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      background:
+        radial-gradient(
+          circle at 75% 25%,
+          rgba(255,255,255,.18),
+          transparent 30%
+        );
+    }
+
+    .genre:nth-child(1) {
+      background: linear-gradient(135deg, #3b0c0c, #100707);
+    }
+
+    .genre:nth-child(2) {
+      background: linear-gradient(135deg, #10233b, #070c13);
+    }
+
+    .genre:nth-child(3) {
+      background: linear-gradient(135deg, #30210b, #100c06);
+    }
+
+    .genre:nth-child(4) {
+      background: linear-gradient(135deg, #24112c, #0b070e);
+    }
+
+    .genre strong {
+      position: relative;
+      font-size: 18px;
+    }
+
+    /* =========================
+       SEARCH
+    ========================== */
+
+    .search-panel {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+
+      background: rgba(0,0,0,.88);
+      backdrop-filter: blur(18px);
+
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+
+      padding: 120px 5%;
+    }
+
+    .search-panel.active {
+      display: flex;
+    }
+
+    .search-box {
+      width: min(800px, 100%);
+    }
+
+    .search-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255,255,255,.25);
+      padding-bottom: 15px;
+    }
+
+    .search-input {
+      flex: 1;
+
+      background: transparent;
+      border: none;
+      outline: none;
+
+      color: white;
+      font-size: 30px;
+    }
+
+    .search-input::placeholder {
+      color: #666;
+    }
+
+    .close-search {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+
+      background: rgba(255,255,255,.08);
+      color: white;
+
+      font-size: 22px;
+    }
+
+    .search-results {
+      margin-top: 25px;
+      display: grid;
+      gap: 10px;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+
+    .search-result {
+      padding: 15px 18px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 8px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      cursor: pointer;
+    }
+
+    .search-result:hover {
+      background: rgba(255,255,255,.11);
+    }
+
+    .search-result small {
+      color: #999;
+    }
+
+    .no-results {
+      color: #888;
+      text-align: center;
+      padding: 30px;
+    }
+
+    /* =========================
+       MOVIE MODAL
+    ========================== */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+
+      background: rgba(0,0,0,.82);
+      backdrop-filter: blur(12px);
+
+      display: none;
+      align-items: center;
+      justify-content: center;
+
+      padding: 25px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-box {
+      width: min(900px, 100%);
+      max-height: 90vh;
+
+      overflow: auto;
+
+      border-radius: 14px;
+
       background:
         linear-gradient(
           135deg,
           #181818,
           #090909
         );
-      transition: .3s;
-    }
 
-    .genre:hover {
-      transform: translateY(-4px);
-      border-color: rgba(255,255,255,.25);
-    }
+      border: 1px solid rgba(255,255,255,.1);
 
-    .genre strong {
+      box-shadow: 0 30px 100px rgba(0,0,0,.8);
+
       position: relative;
-      z-index: 2;
-      font-size: 18px;
     }
 
-    .genre::after {
-      content: "";
+    .modal-close {
       position: absolute;
-      width: 100px;
-      height: 100px;
-      right: -20px;
-      top: -30px;
+      top: 16px;
+      right: 16px;
+
+      width: 40px;
+      height: 40px;
+
       border-radius: 50%;
-      background: rgba(255,255,255,.05);
-    }
 
-    /* =========================
-       FOOTER
-    ========================= */
-
-    footer {
-      padding: 50px 5%;
-      border-top: 1px solid var(--border);
-      color: #777;
-      font-size: 13px;
-      text-align: center;
-    }
-
-    footer strong {
-      color: #ddd;
-    }
-
-    /* =========================
-       SEARCH
-    ========================= */
-
-    .search-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.88);
-      backdrop-filter: blur(18px);
-      z-index: 3000;
-      display: none;
-      align-items: flex-start;
-      justify-content: center;
-      padding-top: 130px;
-    }
-
-    .search-overlay.active {
-      display: flex;
-    }
-
-    .search-box {
-      width: min(720px,90%);
-    }
-
-    .search-top {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      border-bottom: 1px solid #444;
-      padding-bottom: 15px;
-    }
-
-    .search-top input {
-      flex: 1;
-      background: transparent;
-      border: 0;
-      outline: none;
+      background: rgba(0,0,0,.65);
       color: white;
-      font-size: 28px;
+
+      font-size: 20px;
+      z-index: 3;
     }
 
-    .search-top button {
-      border: 0;
-      background: transparent;
-      color: white;
-      font-size: 28px;
-      cursor: pointer;
-    }
-
-    /* =========================
-       MOVIE DETAILS
-    ========================= */
-
-    .details-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.82);
-      backdrop-filter: blur(14px);
-      z-index: 2500;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 25px;
-      overflow-y: auto;
-    }
-
-    .details-overlay.active {
-      display: flex;
-    }
-
-    .details-box {
-      width: min(1050px,100%);
-      min-height: 590px;
-      position: relative;
-      overflow: hidden;
-      border-radius: 18px;
-      background: #111;
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: 0 40px 100px rgba(0,0,0,.7);
+    .modal-content {
       display: grid;
-      grid-template-columns: 40% 60%;
+      grid-template-columns: 270px 1fr;
+      gap: 30px;
+      padding: 35px;
     }
 
-    .details-poster {
-      min-height: 590px;
-      position: relative;
+    .modal-poster {
+      aspect-ratio: 2 / 3;
+      border-radius: 8px;
       overflow: hidden;
+      background: #151515;
     }
 
-    .details-poster svg {
+    .modal-poster img {
       width: 100%;
       height: 100%;
-      display: block;
+      object-fit: cover;
     }
 
-    .details-poster::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(
-          90deg,
-          transparent 55%,
-          #111 100%
-        );
+    .modal-info {
+      align-self: center;
     }
 
-    .details-content {
-      padding: 55px 45px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .details-close {
-      position: absolute;
-      right: 18px;
-      top: 18px;
-      z-index: 10;
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,.15);
-      background: rgba(0,0,0,.55);
-      color: white;
-      cursor: pointer;
-      font-size: 20px;
-    }
-
-    .details-label {
-      color: var(--gold);
-      letter-spacing: 4px;
-      font-size: 11px;
-      font-weight: bold;
-      margin-bottom: 13px;
-    }
-
-    .details-content h2 {
-      font-size: clamp(34px,5vw,60px);
+    .modal-info h2 {
+      font-size: clamp(32px, 5vw, 55px);
       line-height: .95;
-      letter-spacing: -2px;
-      margin-bottom: 18px;
+      margin-bottom: 17px;
     }
 
-    .details-meta {
+    .modal-meta {
       display: flex;
-      gap: 14px;
+      gap: 12px;
       flex-wrap: wrap;
-      color: #aaa;
+      color: #bbb;
+      margin-bottom: 18px;
       font-size: 13px;
-      margin-bottom: 22px;
     }
 
-    .details-meta .star {
-      color: #ffd35a;
-    }
-
-    .details-description {
+    .modal-description {
       color: #aaa;
-      line-height: 1.75;
-      max-width: 600px;
+      line-height: 1.8;
       margin-bottom: 25px;
     }
 
-    .details-tags {
+    .tags {
       display: flex;
-      gap: 8px;
+      gap: 7px;
       flex-wrap: wrap;
-      margin-bottom: 28px;
+      margin-bottom: 25px;
     }
 
     .tag {
-      border: 1px solid rgba(255,255,255,.14);
-      color: #ccc;
-      border-radius: 20px;
-      padding: 6px 11px;
+      padding: 6px 10px;
+      border-radius: 5px;
+      background: rgba(255,255,255,.08);
+      color: #bbb;
       font-size: 11px;
     }
 
     /* =========================
        TOAST
-    ========================= */
+    ========================== */
 
     .toast {
       position: fixed;
-      bottom: 25px;
       left: 50%;
-      transform: translate(-50%,30px);
-      background: rgba(20,20,20,.95);
-      border: 1px solid rgba(255,255,255,.12);
-      color: white;
-      padding: 13px 18px;
+      bottom: 25px;
+
+      transform: translate(-50%, 100px);
+
+      background: #fff;
+      color: #111;
+
+      padding: 13px 20px;
       border-radius: 8px;
-      opacity: 0;
-      pointer-events: none;
-      transition: .3s;
-      z-index: 5000;
+
       font-size: 13px;
-      width: max-content;
-      max-width: 90%;
-      text-align: center;
+      font-weight: 700;
+
+      z-index: 5000;
+
+      transition: .35s;
+      box-shadow: 0 10px 35px rgba(0,0,0,.5);
     }
 
     .toast.show {
-      opacity: 1;
-      transform: translate(-50%,0);
+      transform: translate(-50%, 0);
     }
 
     /* =========================
-       MOBILE
-    ========================= */
+       FOOTER
+    ========================== */
 
-    @media(max-width:900px) {
+    footer {
+      margin-top: 60px;
+      padding: 50px 5% 35px;
+
+      border-top: 1px solid rgba(255,255,255,.07);
+
+      color: #777;
+      text-align: center;
+    }
+
+    footer strong {
+      color: white;
+      letter-spacing: 2px;
+    }
+
+    footer p {
+      margin-top: 10px;
+      font-size: 12px;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================== */
+
+    @media (max-width: 1000px) {
 
       .movie-row {
-        grid-template-columns: repeat(3,1fr);
+        grid-template-columns: repeat(4, 1fr);
       }
 
-      .details-box {
-        grid-template-columns: 1fr;
-        max-height: 90vh;
-        overflow-y: auto;
+      .nav-links {
+        gap: 15px;
       }
 
-      .details-poster {
-        min-height: 300px;
-        max-height: 340px;
-      }
-
-      .details-content {
-        padding: 30px 25px 40px;
-      }
-
-      .details-poster::after {
-        background:
-          linear-gradient(
-            0deg,
-            #111 0%,
-            transparent 70%
-          );
+      .modal-content {
+        grid-template-columns: 220px 1fr;
       }
     }
 
-    @media(max-width:650px) {
+    @media (max-width: 750px) {
 
       .navbar {
-        height: 65px;
+        height: 64px;
         padding: 0 18px;
       }
 
       .logo {
-        margin-right: 0;
-        font-size: 19px;
+        font-size: 20px;
       }
 
       .nav-links {
@@ -777,75 +926,95 @@
 
       .hero {
         min-height: 680px;
-        padding: 100px 20px 50px;
+        padding: 120px 20px 70px;
+        align-items: flex-end;
+      }
+
+      .hero-art {
+        width: 100%;
+        height: 70%;
+        opacity: .55;
       }
 
       .hero h1 {
+        font-size: 54px;
         letter-spacing: -3px;
       }
 
-      .hero-art::before {
-        width: 270px;
-        height: 400px;
-        right: -50px;
-      }
-
-      .content {
-        margin-top: -35px;
+      .hero-description {
+        font-size: 14px;
       }
 
       .section {
-        padding: 25px 18px;
+        padding-left: 18px;
+        padding-right: 18px;
       }
 
       .movie-row {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        padding-bottom: 10px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
       }
 
-      .movie-card {
-        min-width: 170px;
-        height: 250px;
-        scroll-snap-align: start;
+      .feature {
+        margin-left: 18px;
+        margin-right: 18px;
       }
 
-      .original {
-        margin: 25px 18px;
-        padding: 28px;
-      }
-
-      .original h2 {
-        font-size: 32px;
-      }
-
-      .original::after {
-        font-size: 50px;
+      .feature-content {
+        padding: 40px 25px;
       }
 
       .genre-row {
-        grid-template-columns: repeat(2,1fr);
+        grid-template-columns: repeat(2, 1fr);
       }
 
-      .genre {
-        min-height: 100px;
+      .modal {
+        padding: 12px;
       }
 
-      .details-overlay {
-        padding: 10px;
+      .modal-content {
+        grid-template-columns: 1fr;
+        padding: 25px;
       }
 
-      .details-box {
-        border-radius: 13px;
+      .modal-poster {
+        width: 180px;
+        margin: 0 auto;
       }
 
-      .details-poster {
-        min-height: 260px;
+      .modal-info {
+        text-align: center;
       }
 
-      .details-content h2 {
-        font-size: 38px;
+      .tags {
+        justify-content: center;
+      }
+
+      .hero-buttons {
+        width: 100%;
+      }
+
+      .hero-buttons .btn {
+        flex: 1;
+      }
+
+      .search-input {
+        font-size: 22px;
+      }
+    }
+
+    @media (max-width: 390px) {
+
+      .movie-title {
+        font-size: 14px;
+      }
+
+      .movie-meta {
+        font-size: 10px;
+      }
+
+      .hero h1 {
+        font-size: 46px;
       }
     }
   </style>
@@ -855,20 +1024,20 @@
 
   <!-- =========================
        NAVBAR
-  ========================= -->
+  ========================== -->
 
-  <nav class="navbar" id="navbar">
+  <header class="navbar" id="navbar">
 
     <div class="logo">
       RAJ <span>MOVIES</span>
     </div>
 
-    <ul class="nav-links">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#trending">Trending</a></li>
-      <li><a href="#movies">Movies</a></li>
-      <li><a href="#genres">Genres</a></li>
-    </ul>
+    <nav class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#trending">Trending</a>
+      <a href="#movies">Movies</a>
+      <a href="#genres">Genres</a>
+    </nav>
 
     <div class="nav-right">
 
@@ -877,7 +1046,7 @@
         onclick="openSearch()"
         aria-label="Search"
       >
-        ⌕
+        🔍
       </button>
 
       <div class="avatar">
@@ -886,15 +1055,16 @@
 
     </div>
 
-  </nav>
+  </header>
 
 
   <!-- =========================
        HERO
-  ========================= -->
+  ========================== -->
 
   <section class="hero" id="home">
 
+    <div class="hero-bg"></div>
     <div class="hero-art"></div>
 
     <div class="hero-content">
@@ -908,38 +1078,24 @@
         JOURNEY
       </h1>
 
-      <div class="meta">
-
-        <span class="rating">
-          ★ 8.9
-        </span>
-
+      <div class="hero-meta">
+        <span class="rating">★ 8.9</span>
         <span>2026</span>
-
         <span>2h 18m</span>
-
         <span>Action</span>
-
       </div>
 
-      <p>
-        A legendary journey begins where every road ends.
-        One final mission. One impossible choice. And a secret
-        that could change everything.
+      <p class="hero-description">
+        A mysterious journey begins when an ordinary man discovers
+        a secret that could change everything. One final mission.
+        One impossible choice.
       </p>
 
       <div class="hero-buttons">
 
         <button
           class="btn btn-primary"
-          onclick="openMovie(
-            'The Last Journey',
-            '8.9',
-            '2026',
-            '2h 18m',
-            'Action',
-            'A legendary journey begins where every road ends. One final mission and one impossible choice.'
-          )"
+          onclick="showToast('Trailer player will be connected here.')"
         >
           ▶ Watch Now
         </button>
@@ -952,10 +1108,10 @@
             '2026',
             '2h 18m',
             'Action',
-            'A legendary journey begins where every road ends. One final mission and one impossible choice.'
+            'A mysterious journey begins when an ordinary man discovers a secret that could change everything.'
           )"
         >
-          + More Info
+          ＋ More Info
         </button>
 
       </div>
@@ -966,1294 +1122,515 @@
 
 
   <!-- =========================
-       MAIN CONTENT
-  ========================= -->
+       TRENDING
+  ========================== -->
 
-  <main class="content">
+  <section class="section" id="trending">
 
+    <div class="section-header">
+      <h2 class="section-title">
+        Trending <span>Now</span>
+      </h2>
 
-    <!-- TRENDING -->
+      <span class="view-all">
+        Explore all →
+      </span>
+    </div>
 
-    <section class="section" id="trending">
+    <div class="movie-row">
 
-      <div class="section-head">
+      <div
+        class="movie-card"
+        data-title="Inception"
+        data-genre="Action Sci-Fi Thriller"
+        onclick="openMovie(
+          'Inception',
+          '8.8',
+          '2010',
+          '2h 28m',
+          'Sci-Fi',
+          'A skilled thief who steals secrets through dream-sharing technology is given a chance to erase his past.'
+        )"
+      >
+        <img
+          class="movie-poster"
+          src="images/inception.jpg"
+          alt="Inception poster"
+          onerror="posterError(this,'INCEPTION')"
+        >
 
-        <h2>
-          Trending Now
-        </h2>
+        <span class="badge">TRENDING</span>
 
-        <span class="view-all">
-          View all →
-        </span>
+        <div class="movie-overlay">
+          <div class="movie-info">
+            <div class="movie-title">Inception</div>
 
+            <div class="movie-meta">
+              <span class="movie-rating">★ 8.8</span>
+              <span>2010</span>
+              <span>Sci-Fi</span>
+            </div>
+          </div>
+        </div>
       </div>
 
 
-      <div class="movie-row">
-
-
-        <!-- MOVIE 1 -->
-
-        <div
-          class="movie-card"
-          onclick="openMovie(
-            'Dark Horizon',
-            '8.7',
-            '2026',
-            '2h 04m',
-            'Thriller',
-            'A mysterious signal appears beyond the horizon and changes the fate of a small team.'
-          )"
+      <div
+        class="movie-card"
+        data-title="Interstellar"
+        data-genre="Adventure Drama Sci-Fi"
+        onclick="openMovie(
+          'Interstellar',
+          '8.7',
+          '2014',
+          '2h 49m',
+          'Sci-Fi',
+          'Explorers travel through a wormhole in space in an attempt to ensure humanitys survival.'
+        )"
+      >
+        <img
+          class="movie-poster"
+          src="images/interstellar.jpg"
+          alt="Interstellar poster"
+          onerror="posterError(this,'INTERSTELLAR')"
         >
 
-          <div class="poster">
+        <span class="badge">POPULAR</span>
 
-            <svg
-              viewBox="0 0 400 600"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+        <div class="movie-overlay">
+          <div class="movie-info">
+            <div class="movie-title">Interstellar</div>
 
-              <defs>
-
-                <linearGradient
-                  id="p1"
-                  x1="0"
-                  y1="0"
-                  x2="1"
-                  y2="1"
-                >
-
-                  <stop stop-color="#161616"/>
-
-                  <stop
-                    offset=".55"
-                    stop-color="#442b12"
-                  />
-
-                  <stop
-                    offset="1"
-                    stop-color="#050505"
-                  />
-
-                </linearGradient>
-
-              </defs>
-
-              <rect
-                width="400"
-                height="600"
-                fill="url(#p1)"
-              />
-
-              <circle
-                cx="285"
-                cy="190"
-                r="105"
-                fill="#d69a42"
-                opacity=".35"
-              />
-
-              <path
-                d="M0 430 Q190 350 400 440 L400 600 0 600Z"
-                fill="#050505"
-              />
-
-              <text
-                x="30"
-                y="80"
-                fill="#d7b46a"
-                font-size="18"
-                letter-spacing="6"
-              >
-                RAJ
-              </text>
-
-              <text
-                x="30"
-                y="500"
-                fill="white"
-                font-size="37"
-                font-weight="900"
-              >
-                DARK
-              </text>
-
-              <text
-                x="30"
-                y="540"
-                fill="white"
-                font-size="37"
-                font-weight="900"
-              >
-                HORIZON
-              </text>
-
-            </svg>
-
-          </div>
-
-          <div class="card-gradient"></div>
-
-          <div class="card-info">
-
-            <h3>
-              Dark Horizon
-            </h3>
-
-            <div class="card-meta">
-
-              <span class="card-rating">
-                ★ 8.7
-              </span>
-
-              <span>2026</span>
-
-              <span>2h 04m</span>
-
+            <div class="movie-meta">
+              <span class="movie-rating">★ 8.7</span>
+              <span>2014</span>
+              <span>Sci-Fi</span>
             </div>
-
           </div>
-
         </div>
-
-
-        <!-- MOVIE 2 -->
-
-        <div
-          class="movie-card"
-          onclick="openMovie(
-            'Lost World',
-            '8.5',
-            '2026',
-            '1h 56m',
-            'Adventure',
-            'A group of explorers discovers a forgotten world hidden beneath the earth.'
-          )"
-        >
-
-          <div class="poster">
-
-            <svg
-              viewBox="0 0 400 600"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-
-              <defs>
-
-                <linearGradient
-                  id="p2"
-                  x1="0"
-                  y1="0"
-                  x2="1"
-                  y2="1"
-                >
-
-                  <stop stop-color="#061b1a"/>
-
-                  <stop
-                    offset=".55"
-                    stop-color="#16705d"
-                  />
-
-                  <stop
-                    offset="1"
-                    stop-color="#020606"
-                  />
-
-                </linearGradient>
-
-              </defs>
-
-              <rect
-                width="400"
-                height="600"
-                fill="url(#p2)"
-              />
-
-              <circle
-                cx="290"
-                cy="160"
-                r="100"
-                fill="#9ee5ba"
-                opacity=".28"
-              />
-
-              <path
-                d="M0 380 L100 260 165 350 230 235 400 390 400 600 0 600Z"
-                fill="#04100e"
-              />
-
-              <text
-                x="30"
-                y="80"
-                fill="#b9e8cf"
-                font-size="18"
-                letter-spacing="6"
-              >
-                RAJ
-              </text>
-
-              <text
-                x="30"
-                y="505"
-                fill="white"
-                font-size="42"
-                font-weight="900"
-              >
-                LOST
-              </text>
-
-              <text
-                x="30"
-                y="548"
-                fill="white"
-                font-size="42"
-                font-weight="900"
-              >
-                WORLD
-              </text>
-
-            </svg>
-
-          </div>
-
-          <div class="card-gradient"></div>
-
-          <div class="card-info">
-
-            <h3>
-              Lost World
-            </h3>
-
-            <div class="card-meta">
-
-              <span class="card-rating">
-                ★ 8.5
-              </span>
-
-              <span>2026</span>
-
-              <span>1h 56m</span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- MOVIE 3 -->
-
-        <div
-          class="movie-card"
-          onclick="openMovie(
-            'Beyond Space',
-            '9.1',
-            '2026',
-            '2h 22m',
-            'Sci-Fi',
-            'Humanity reaches beyond the stars and finds something waiting in the darkness.'
-          )"
-        >
-
-          <div class="poster">
-
-            <svg
-              viewBox="0 0 400 600"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-
-              <defs>
-
-                <linearGradient
-                  id="p3"
-                  x1="0"
-                  y1="0"
-                  x2="1"
-                  y2="1"
-                >
-
-                  <stop stop-color="#080c2a"/>
-
-                  <stop
-                    offset=".5"
-                    stop-color="#283c9b"
-                  />
-
-                  <stop
-                    offset="1"
-                    stop-color="#02030b"
-                  />
-
-                </linearGradient>
-
-              </defs>
-
-              <rect
-                width="400"
-                height="600"
-                fill="url(#p3)"
-              />
-
-              <circle
-                cx="280"
-                cy="190"
-                r="125"
-                fill="#7b91ff"
-                opacity=".25"
-              />
-
-              <circle
-                cx="90"
-                cy="150"
-                r="2"
-                fill="white"
-              />
-
-              <circle
-                cx="170"
-                cy="100"
-                r="3"
-                fill="white"
-              />
-
-              <circle
-                cx="330"
-                cy="90"
-                r="2"
-                fill="white"
-              />
-
-              <circle
-                cx="210"
-                cy="220"
-                r="2"
-                fill="white"
-              />
-
-              <path
-                d="M150 440 L205 270 260 440Z"
-                fill="#080b16"
-              />
-
-              <text
-                x="30"
-                y="80"
-                fill="#b9c3ff"
-                font-size="18"
-                letter-spacing="6"
-              >
-                RAJ
-              </text>
-
-              <text
-                x="30"
-                y="500"
-                fill="white"
-                font-size="40"
-                font-weight="900"
-              >
-                BEYOND
-              </text>
-
-              <text
-                x="30"
-                y="542"
-                fill="white"
-                font-size="40"
-                font-weight="900"
-              >
-                SPACE
-              </text>
-
-            </svg>
-
-          </div>
-
-          <div class="card-gradient"></div>
-
-          <div class="card-info">
-
-            <h3>
-              Beyond Space
-            </h3>
-
-            <div class="card-meta">
-
-              <span class="card-rating">
-                ★ 9.1
-              </span>
-
-              <span>2026</span>
-
-              <span>2h 22m</span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- MOVIE 4 -->
-
-        <div
-          class="movie-card"
-          onclick="openMovie(
-            'Midnight City',
-            '8.2',
-            '2025',
-            '1h 48m',
-            'Crime',
-            'A detective follows a trail of secrets through a city that never sleeps.'
-          )"
-        >
-
-          <div class="poster">
-
-            <svg
-              viewBox="0 0 400 600"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-
-              <defs>
-
-                <linearGradient
-                  id="p4"
-                  x1="0"
-                  y1="0"
-                  x2="1"
-                  y2="1"
-                >
-
-                  <stop stop-color="#160b25"/>
-
-                  <stop
-                    offset=".55"
-                    stop-color="#531b70"
-                  />
-
-                  <stop
-                    offset="1"
-                    stop-color="#06030a"
-                  />
-
-                </linearGradient>
-
-              </defs>
-
-              <rect
-                width="400"
-                height="600"
-                fill="url(#p4)"
-              />
-
-              <circle
-                cx="290"
-                cy="140"
-                r="75"
-                fill="#e7c6ff"
-                opacity=".3"
-              />
-
-              <path
-                d="M0 390 L60 310 110 360 170 270 230 350 300 230 400 370 400 600 0 600Z"
-                fill="#080509"
-              />
-
-              <text
-                x="30"
-                y="80"
-                fill="#dcb8ff"
-                font-size="18"
-                letter-spacing="6"
-              >
-                RAJ
-              </text>
-
-              <text
-                x="30"
-                y="500"
-                fill="white"
-                font-size="38"
-                font-weight="900"
-              >
-                MIDNIGHT
-              </text>
-
-              <text
-                x="30"
-                y="542"
-                fill="white"
-                font-size="38"
-                font-weight="900"
-              >
-                CITY
-              </text>
-
-            </svg>
-
-          </div>
-
-          <div class="card-gradient"></div>
-
-          <div class="card-info">
-
-            <h3>
-              Midnight City
-            </h3>
-
-            <div class="card-meta">
-
-              <span class="card-rating">
-                ★ 8.2
-              </span>
-
-              <span>2025</span>
-
-              <span>1h 48m</span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- MOVIE 5 -->
-
-        <div
-          class="movie-card"
-          onclick="openMovie(
-            'Silent Night',
-            '8.8',
-            '2025',
-            '2h 01m',
-            'Mystery',
-            'One silent night. One missing person. And a secret nobody wants revealed.'
-          )"
-        >
-
-          <div class="poster">
-
-            <svg
-              viewBox="0 0 400 600"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-
-              <defs>
-
-                <linearGradient
-                  id="p5"
-                  x1="0"
-                  y1="0"
-                  x2="1"
-                  y2="1"
-                >
-
-                  <stop stop-color="#111d2d"/>
-
-                  <stop
-                    offset=".55"
-                    stop-color="#416079"
-                  />
-
-                  <stop
-                    offset="1"
-                    stop-color="#06080d"
-                  />
-
-                </linearGradient>
-
-              </defs>
-
-              <rect
-                width="400"
-                height="600"
-                fill="url(#p5)"
-              />
-
-              <circle
-                cx="280"
-                cy="130"
-                r="85"
-                fill="#eaf6ff"
-                opacity=".32"
-              />
-
-              <path
-                d="M0 390 Q200 330 400 390 L400 600 0 600Z"
-                fill="#071019"
-              />
-
-              <text
-                x="30"
-                y="80"
-                fill="#d6eaff"
-                font-size="18"
-                letter-spacing="6"
-              >
-                RAJ
-              </text>
-
-              <text
-                x="30"
-                y="505"
-                fill="white"
-                font-size="42"
-                font-weight="900"
-              >
-                SILENT
-              </text>
-
-              <text
-                x="30"
-                y="548"
-                fill="white"
-                font-size="42"
-                font-weight="900"
-              >
-                NIGHT
-              </text>
-
-            </svg>
-
-          </div>
-
-          <div class="card-gradient"></div>
-
-          <div class="card-info">
-
-            <h3>
-              Silent Night
-            </h3>
-
-            <div class="card-meta">
-
-              <span class="card-rating">
-                ★ 8.8
-              </span>
-
-              <span>2025</span>
-
-              <span>2h 01m</span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         POPULAR MOVIES
-    ========================= -->
-
-    <section class="section" id="movies">
-
-      <div class="section-head">
-
-        <h2>
-          Popular Movies
-        </h2>
-
-        <span class="view-all">
-          View all →
-        </span>
-
       </div>
 
 
-      <div class="movie-row">
-
-
-        <div
-          class="movie-card"
-          onclick="openMovie(
-            'Final Mission',
-            '8.9',
-            '2026',
-            '2h 10m',
-            'Action',
-            'An elite team receives one final mission where failure is not an option.'
-          )"
+      <div
+        class="movie-card"
+        data-title="The Dark Knight"
+        data-genre="Action Crime Drama"
+        onclick="openMovie(
+          'The Dark Knight',
+          '9.0',
+          '2008',
+          '2h 32m',
+          'Action',
+          'Batman faces a criminal mastermind who pushes Gotham and its heroes toward chaos.'
+        )"
+      >
+        <img
+          class="movie-poster"
+          src="images/the-dark-knight.jpg"
+          alt="The Dark Knight poster"
+          onerror="posterError(this,'THE DARK KNIGHT')"
         >
 
-          <div class="poster">
+        <span class="badge">TOP RATED</span>
 
-            <svg
-              viewBox="0 0 400 600"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+        <div class="movie-overlay">
+          <div class="movie-info">
+            <div class="movie-title">The Dark Knight</div>
 
-              <defs>
-
-                <linearGradient
-                  id="p6"
-                  x1="0"
-                  y1="0"
-                  x2="1"
-                  y2="1"
-                >
-
-                  <stop stop-color="#260606"/>
-
-                  <stop
-                    offset=".5"
-                    stop-color="#9b1d13"
-                  />
-
-                  <stop
-                    offset="1"
-                    stop-color="#090303"
-                  />
-
-                </linearGradient>
-
-              </defs>
-
-              <rect
-                width="400"
-                height="600"
-                fill="url(#p6)"
-              />
-
-              <path
-                d="M0 390 L130 220 230 370 330 190 400 300 400 600 0 600Z"
-                fill="#100303"
-              />
-
-              <text
-                x="30"
-                y="80"
-                fill="#ffc1b9"
-                font-size="18"
-                letter-spacing="6"
-              >
-                RAJ
-              </text>
-
-              <text
-                x="30"
-                y="500"
-                fill="white"
-                font-size="40"
-                font-weight="900"
-              >
-                FINAL
-              </text>
-
-              <text
-                x="30"
-                y="542"
-                fill="white"
-                font-size="40"
-                font-weight="900"
-              >
-                MISSION
-              </text>
-
-            </svg>
-
-          </div>
-
-          <div class="card-gradient"></div>
-
-          <div class="card-info">
-
-            <h3>
-              Final Mission
-            </h3>
-
-            <div class="card-meta">
-
-              <span class="card-rating">
-                ★ 8.9
-              </span>
-
-              <span>2026</span>
-
-              <span>2h 10m</span>
-
+            <div class="movie-meta">
+              <span class="movie-rating">★ 9.0</span>
+              <span>2008</span>
+              <span>Action</span>
             </div>
-
           </div>
-
         </div>
-
-
-        <div
-          class="movie-card"
-          onclick="openMovie(
-            'Love Story',
-            '8.4',
-            '2025',
-            '2h 05m',
-            'Romance',
-            'Two people from different worlds discover that some stories are worth fighting for.'
-          )"
-        >
-
-          <div class="poster">
-
-            <svg
-              viewBox="0 0 400 600"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-
-              <defs>
-
-                <linearGradient
-                  id="p7"
-                  x1="0"
-                  y1="0"
-                  x2="1"
-                  y2="1"
-                >
-
-                  <stop stop-color="#3b081c"/>
-
-                  <stop
-                    offset=".5"
-                    stop-color="#b72c57"
-                  />
-
-                  <stop
-                    offset="1"
-                    stop-color="#110309"
-                  />
-
-                </linearGradient>
-
-              </defs>
-
-              <rect
-                width="400"
-                height="600"
-                fill="url(#p7)"
-              />
-
-              <circle
-                cx="285"
-                cy="180"
-                r="120"
-                fill="#ffb4c9"
-                opacity=".25"
-              />
-
-              <text
-                x="30"
-                y="80"
-                fill="#ffc4d4"
-                font-size="18"
-                letter-spacing="6"
-              >
-                RAJ
-              </text>
-
-              <text
-                x="30"
-                y="500"
-                fill="white"
-                font-size="42"
-                font-weight="900"
-              >
-                LOVE
-              </text>
-
-              <text
-                x="30"
-                y="542"
-                fill="white"
-                font-size="42"
-                font-weight="900"
-              >
-                STORY
-              </text>
-
-            </svg>
-
-          </div>
-
-          <div class="card-gradient"></div>
-
-          <div class="card-info">
-
-            <h3>
-              Love Story
-            </h3>
-
-            <div class="card-meta">
-
-              <span class="card-rating">
-                ★ 8.4
-              </span>
-
-              <span>2025</span>
-
-              <span>2h 05m</span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div
-          class="movie-card"
-          onclick="openMovie(
-            'Wild Roads',
-            '8.1',
-            '2024',
-            '1h 52m',
-            'Adventure',
-            'A road trip turns into an unforgettable journey across the wildest corners of the country.'
-          )"
-        >
-
-          <div class="poster">
-
-            <svg
-              viewBox="0 0 400 600"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-
-              <defs>
-
-                <linearGradient
-                  id="p8"
-                  x1="0"
-                  y1="0"
-                  x2="1"
-                  y2="1"
-                >
-
-                  <stop stop-color="#152414"/>
-
-                  <stop
-                    offset=".5"
-                    stop-color="#6d7624"
-                  />
-
-                  <stop
-                    offset="1"
-                    stop-color="#0a0d07"
-                  />
-
-                </linearGradient>
-
-              </defs>
-
-              <rect
-                width="400"
-                height="600"
-                fill="url(#p8)"
-              />
-
-              <path
-                d="M200 600 Q170 470 260 360 Q320 290 400 230 L400 600Z"
-                fill="#15190d"
-              />
-
-              <text
-                x="30"
-                y="80"
-                fill="#dbe6a0"
-                font-size="18"
-                letter-spacing="6"
-              >
-                RAJ
-              </text>
-
-              <text
-                x="30"
-                y="500"
-                fill="white"
-                font-size="40"
-                font-weight="900"
-              >
-                WILD
-              </text>
-
-              <text
-                x="30"
-                y="542"
-                fill="white"
-                font-size="40"
-                font-weight="900"
-              >
-                ROADS
-              </text>
-
-            </svg>
-
-          </div>
-
-          <div class="card-gradient"></div>
-
-          <div class="card-info">
-
-            <h3>
-              Wild Roads
-            </h3>
-
-            <div class="card-meta">
-
-              <span class="card-rating">
-                ★ 8.1
-              </span>
-
-              <span>2024</span>
-
-              <span>1h 52m</span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div
-          class="movie-card"
-          onclick="openMovie(
-            'Deep Ocean',
-            '8.6',
-            '2025',
-            '2h 12m',
-            'Adventure',
-            'A deep-sea expedition discovers an unexplored world beneath the ocean floor.'
-          )"
-        >
-
-          <div class="poster">
-
-            <svg
-              viewBox="0 0 400 600"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-
-              <defs>
-
-                <linearGradient
-                  id="p9"
-                  x1="0"
-                  y1="0"
-                  x2="1"
-                  y2="1"
-                >
-
-                  <stop stop-color="#031321"/>
-
-                  <stop
-                    offset=".5"
-                    stop-color="#075b79"
-                  />
-
-                  <stop
-                    offset="1"
-                    stop-color="#01070d"
-                  />
-
-                </linearGradient>
-
-              </defs>
-
-              <rect
-                width="400"
-                height="600"
-                fill="url(#p9)"
-              />
-
-              <circle
-                cx="250"
-                cy="120"
-                r="110"
-                fill="#75dcff"
-                opacity=".18"
-              />
-
-              <path
-                d="M0 450 Q150 390 400 460 L400 600 0 600Z"
-                fill="#01090f"
-              />
-
-              <text
-                x="30"
-                y="80"
-                fill="#9de9ff"
-                font-size="18"
-                letter-spacing="6"
-              >
-                RAJ
-              </text>
-
-              <text
-                x="30"
-                y="500"
-                fill="white"
-                font-size="40"
-                font-weight="900"
-              >
-                DEEP
-              </text>
-
-              <text
-                x="30"
-                y="542"
-                fill="white"
-                font-size="40"
-                font-weight="900"
-              >
-                OCEAN
-              </text>
-
-            </svg>
-
-          </div>
-
-          <div class="card-gradient"></div>
-
-          <div class="card-info">
-
-            <h3>
-              Deep Ocean
-            </h3>
-
-            <div class="card-meta">
-
-              <span class="card-rating">
-                ★ 8.6
-              </span>
-
-              <span>2025</span>
-
-              <span>2h 12m</span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         RAJ MOVIES ORIGINAL
-    ========================= -->
-
-    <section class="original">
-
-      <div class="original-content">
-
-        <div class="original-label">
-          RAJ MOVIES ORIGINAL
-        </div>
-
-        <h2>
-          The Forgotten Code
-        </h2>
-
-        <p>
-          A mysterious code. A forgotten civilization.
-          And a secret powerful enough to rewrite history.
-        </p>
-
-        <button
-          class="btn btn-primary"
-          onclick="openMovie(
-            'The Forgotten Code',
-            '9.0',
-            '2026',
-            '2h 20m',
-            'Mystery',
-            'A mysterious code leads a young researcher toward a secret civilization lost to history.'
-          )"
-        >
-          ▶ Explore
-        </button>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         GENRES
-    ========================= -->
-
-    <section class="section" id="genres">
-
-      <div class="section-head">
-
-        <h2>
-          Browse by Genre
-        </h2>
-
       </div>
 
 
-      <div class="genre-row">
+      <div
+        class="movie-card"
+        data-title="Avatar"
+        data-genre="Adventure Fantasy Sci-Fi"
+        onclick="openMovie(
+          'Avatar',
+          '7.9',
+          '2009',
+          '2h 42m',
+          'Fantasy',
+          'A former Marine becomes part of an extraordinary world on a distant moon.'
+        )"
+      >
+        <img
+          class="movie-poster"
+          src="images/avatar.jpg"
+          alt="Avatar poster"
+          onerror="posterError(this,'AVATAR')"
+        >
 
-        <div class="genre">
-          <strong>Action</strong>
+        <span class="badge">FEATURED</span>
+
+        <div class="movie-overlay">
+          <div class="movie-info">
+            <div class="movie-title">Avatar</div>
+
+            <div class="movie-meta">
+              <span class="movie-rating">★ 7.9</span>
+              <span>2009</span>
+              <span>Fantasy</span>
+            </div>
+          </div>
         </div>
-
-        <div class="genre">
-          <strong>Thriller</strong>
-        </div>
-
-        <div class="genre">
-          <strong>Drama</strong>
-        </div>
-
-        <div class="genre">
-          <strong>Romance</strong>
-        </div>
-
       </div>
 
-    </section>
 
-  </main>
+      <div
+        class="movie-card"
+        data-title="The Matrix"
+        data-genre="Action Sci-Fi"
+        onclick="openMovie(
+          'The Matrix',
+          '8.7',
+          '1999',
+          '2h 16m',
+          'Sci-Fi',
+          'A computer hacker discovers that reality is not what it seems and joins a rebellion against the machines.'
+        )"
+      >
+        <img
+          class="movie-poster"
+          src="images/the-matrix.jpg"
+          alt="The Matrix poster"
+          onerror="posterError(this,'THE MATRIX')"
+        >
+
+        <span class="badge">CLASSIC</span>
+
+        <div class="movie-overlay">
+          <div class="movie-info">
+            <div class="movie-title">The Matrix</div>
+
+            <div class="movie-meta">
+              <span class="movie-rating">★ 8.7</span>
+              <span>1999</span>
+              <span>Sci-Fi</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================
+       MOVIES
+  ========================== -->
+
+  <section class="section" id="movies">
+
+    <div class="section-header">
+
+      <h2 class="section-title">
+        Popular <span>Movies</span>
+      </h2>
+
+      <span class="view-all">
+        See all →
+      </span>
+
+    </div>
+
+
+    <div class="movie-row">
+
+      <div
+        class="movie-card"
+        data-title="Gladiator"
+        data-genre="Action Drama History"
+        onclick="openMovie(
+          'Gladiator',
+          '8.5',
+          '2000',
+          '2h 35m',
+          'Drama',
+          'A Roman general is forced into the arena and fights for his freedom and revenge.'
+        )"
+      >
+        <img
+          class="movie-poster"
+          src="images/gladiator.jpg"
+          alt="Gladiator poster"
+          onerror="posterError(this,'GLADIATOR')"
+        >
+
+        <div class="movie-overlay">
+          <div class="movie-info">
+            <div class="movie-title">Gladiator</div>
+
+            <div class="movie-meta">
+              <span class="movie-rating">★ 8.5</span>
+              <span>2000</span>
+              <span>Drama</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div
+        class="movie-card"
+        data-title="Titanic"
+        data-genre="Romance Drama"
+        onclick="openMovie(
+          'Titanic',
+          '7.9',
+          '1997',
+          '3h 14m',
+          'Romance',
+          'Two people from different worlds find each other aboard a legendary voyage.'
+        )"
+      >
+        <img
+          class="movie-poster"
+          src="images/titanic.jpg"
+          alt="Titanic poster"
+          onerror="posterError(this,'TITANIC')"
+        >
+
+        <div class="movie-overlay">
+          <div class="movie-info">
+            <div class="movie-title">Titanic</div>
+
+            <div class="movie-meta">
+              <span class="movie-rating">★ 7.9</span>
+              <span>1997</span>
+              <span>Romance</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div
+        class="movie-card"
+        data-title="Joker"
+        data-genre="Crime Drama Thriller"
+        onclick="openMovie(
+          'Joker',
+          '8.3',
+          '2019',
+          '2h 2m',
+          'Drama',
+          'A troubled man faces a harsh city and slowly becomes a symbol of chaos.'
+        )"
+      >
+        <img
+          class="movie-poster"
+          src="images/joker.jpg"
+          alt="Joker poster"
+          onerror="posterError(this,'JOKER')"
+        >
+
+        <div class="movie-overlay">
+          <div class="movie-info">
+            <div class="movie-title">Joker</div>
+
+            <div class="movie-meta">
+              <span class="movie-rating">★ 8.3</span>
+              <span>2019</span>
+              <span>Drama</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div
+        class="movie-card"
+        data-title="Dune"
+        data-genre="Adventure Drama Sci-Fi"
+        onclick="openMovie(
+          'Dune',
+          '8.0',
+          '2021',
+          '2h 35m',
+          'Sci-Fi',
+          'A young heir must travel to a dangerous desert world and face a destiny larger than himself.'
+        )"
+      >
+        <img
+          class="movie-poster"
+          src="images/dune.jpg"
+          alt="Dune poster"
+          onerror="posterError(this,'DUNE')"
+        >
+
+        <div class="movie-overlay">
+          <div class="movie-info">
+            <div class="movie-title">Dune</div>
+
+            <div class="movie-meta">
+              <span class="movie-rating">★ 8.0</span>
+              <span>2021</span>
+              <span>Sci-Fi</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div
+        class="movie-card"
+        data-title="John Wick"
+        data-genre="Action Thriller"
+        onclick="openMovie(
+          'John Wick',
+          '7.4',
+          '2014',
+          '1h 41m',
+          'Action',
+          'A legendary assassin returns to the world he left behind after a personal loss.'
+        )"
+      >
+        <img
+          class="movie-poster"
+          src="images/john-wick.jpg"
+          alt="John Wick poster"
+          onerror="posterError(this,'JOHN WICK')"
+        >
+
+        <div class="movie-overlay">
+          <div class="movie-info">
+            <div class="movie-title">John Wick</div>
+
+            <div class="movie-meta">
+              <span class="movie-rating">★ 7.4</span>
+              <span>2014</span>
+              <span>Action</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================
+       FEATURE
+  ========================== -->
+
+  <section class="feature">
+
+    <div class="feature-content">
+
+      <div class="feature-label">
+        RAJ MOVIES ORIGINAL
+      </div>
+
+      <h2>
+        THE FORGOTTEN CODE
+      </h2>
+
+      <p>
+        An encrypted message. A missing scientist. And a secret
+        buried for decades. Discover the mystery behind the code.
+      </p>
+
+      <button
+        class="btn btn-primary"
+        onclick="openMovie(
+          'The Forgotten Code',
+          '8.6',
+          '2026',
+          '2h 04m',
+          'Thriller',
+          'An encrypted message leads a young investigator into a mystery buried for decades.'
+        )"
+      >
+        More Information
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       GENRES
+  ========================== -->
+
+  <section class="section" id="genres">
+
+    <div class="section-header">
+
+      <h2 class="section-title">
+        Browse by <span>Genre</span>
+      </h2>
+
+    </div>
+
+    <div class="genre-row">
+
+      <div
+        class="genre"
+        onclick="filterGenre('Action')"
+      >
+        <strong>Action</strong>
+      </div>
+
+      <div
+        class="genre"
+        onclick="filterGenre('Sci-Fi')"
+      >
+        <strong>Sci-Fi</strong>
+      </div>
+
+      <div
+        class="genre"
+        onclick="filterGenre('Drama')"
+      >
+        <strong>Drama</strong>
+      </div>
+
+      <div
+        class="genre"
+        onclick="filterGenre('Romance')"
+      >
+        <strong>Romance</strong>
+      </div>
+
+    </div>
+
+  </section>
 
 
   <!-- =========================
        FOOTER
-  ========================= -->
+  ========================== -->
 
   <footer>
 
-    <strong>
-      RAJ MOVIES
-    </strong>
+    <strong>RAJ MOVIES</strong>
 
-    — Premium Cinematic Experience
+    <p>
+      Premium cinematic movie discovery.
+    </p>
 
-    <br>
-    <br>
-
-    © 2026 Raj Movies
+    <p>
+      © 2026 Raj Movies
+    </p>
 
   </footer>
 
 
   <!-- =========================
-       SEARCH OVERLAY
-  ========================= -->
+       SEARCH PANEL
+  ========================== -->
 
   <div
-    class="search-overlay"
-    id="searchOverlay"
+    class="search-panel"
+    id="searchPanel"
   >
 
     <div class="search-box">
@@ -2261,13 +1638,15 @@
       <div class="search-top">
 
         <input
-          id="searchInput"
           type="text"
+          id="searchInput"
+          class="search-input"
           placeholder="Search movies..."
           autocomplete="off"
         >
 
         <button
+          class="close-search"
           onclick="closeSearch()"
         >
           ×
@@ -2276,14 +1655,9 @@
       </div>
 
       <div
-        style="
-          color:#777;
-          margin-top:20px;
-          font-size:13px;
-        "
-      >
-        Search system will be connected in the next step.
-      </div>
+        class="search-results"
+        id="searchResults"
+      ></div>
 
     </div>
 
@@ -2291,179 +1665,111 @@
 
 
   <!-- =========================
-       MOVIE DETAILS
-  ========================= -->
+       MOVIE MODAL
+  ========================== -->
 
   <div
-    class="details-overlay"
-    id="detailsOverlay"
+    class="modal"
+    id="movieModal"
+    onclick="closeModalOutside(event)"
   >
 
-    <div class="details-box">
+    <div class="modal-box">
 
       <button
-        class="details-close"
+        class="modal-close"
         onclick="closeMovie()"
       >
         ×
       </button>
 
+      <div class="modal-content">
 
-      <div class="details-poster">
+        <div class="modal-poster">
 
-        <svg
-          viewBox="0 0 400 600"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+          <div
+            class="poster-fallback"
+            id="modalFallback"
+          >
+            <div>
+              <strong id="modalPosterText">
+                MOVIE
+              </strong>
+              <small>RAJ MOVIES</small>
+            </div>
+          </div>
 
-          <defs>
+        </div>
 
-            <linearGradient
-              id="detailGradient"
-              x1="0"
-              y1="0"
-              x2="1"
-              y2="1"
+        <div class="modal-info">
+
+          <h2 id="modalTitle">
+            Movie
+          </h2>
+
+          <div class="modal-meta">
+
+            <span
+              class="movie-rating"
+              id="modalRating"
             >
-
-              <stop stop-color="#171717"/>
-
-              <stop
-                offset=".5"
-                stop-color="#71310e"
-              />
-
-              <stop
-                offset="1"
-                stop-color="#050505"
-              />
-
-            </linearGradient>
-
-          </defs>
-
-          <rect
-            width="400"
-            height="600"
-            fill="url(#detailGradient)"
-          />
-
-          <circle
-            cx="280"
-            cy="180"
-            r="120"
-            fill="#d79b46"
-            opacity=".3"
-          />
-
-          <path
-            d="M0 430 Q190 350 400 440 L400 600 0 600Z"
-            fill="#050505"
-          />
-
-          <text
-            x="30"
-            y="80"
-            fill="#d7b46a"
-            font-size="18"
-            letter-spacing="6"
-          >
-            RAJ
-          </text>
-
-          <text
-            id="detailPosterText"
-            x="30"
-            y="520"
-            fill="white"
-            font-size="35"
-            font-weight="900"
-          >
-            RAJ MOVIES
-          </text>
-
-        </svg>
-
-      </div>
-
-
-      <div class="details-content">
-
-        <div class="details-label">
-          RAJ MOVIES
-        </div>
-
-        <h2 id="detailTitle">
-          The Last Journey
-        </h2>
-
-        <div class="details-meta">
-
-          <span class="star">
-            ★
-            <span id="detailRating">
-              8.9
+              ★ 8.0
             </span>
-          </span>
 
-          <span id="detailYear">
-            2026
-          </span>
+            <span id="modalYear">
+              2026
+            </span>
 
-          <span id="detailDuration">
-            2h 18m
-          </span>
+            <span id="modalDuration">
+              2h
+            </span>
 
-          <span id="detailGenre">
-            Action
-          </span>
+            <span id="modalGenre">
+              Action
+            </span>
 
-        </div>
+          </div>
 
-        <p
-          class="details-description"
-          id="detailDescription"
-        >
-          A legendary journey begins where every road ends.
-        </p>
-
-
-        <div class="details-tags">
-
-          <span class="tag">
-            HD
-          </span>
-
-          <span class="tag">
-            5.1 Audio
-          </span>
-
-          <span class="tag">
-            Subtitles
-          </span>
-
-          <span class="tag">
-            Premium
-          </span>
-
-        </div>
-
-
-        <div class="hero-buttons">
-
-          <button
-            class="btn btn-primary"
-            onclick="showTrailerMessage()"
+          <p
+            class="modal-description"
+            id="modalDescription"
           >
-            ▶ Watch Trailer
-          </button>
+            Movie description.
+          </p>
 
-          <button
-            class="btn btn-dark"
-            onclick="addToList()"
-          >
-            ＋ My List
-          </button>
+          <div class="tags">
+
+            <span class="tag">
+              HD
+            </span>
+
+            <span class="tag">
+              Premium
+            </span>
+
+            <span class="tag">
+              Cinematic
+            </span>
+
+          </div>
+
+          <div class="hero-buttons">
+
+            <button
+              class="btn btn-primary"
+              onclick="showToast('Official/licensed trailer player will be connected here.')"
+            >
+              ▶ Watch Trailer
+            </button>
+
+            <button
+              class="btn btn-dark"
+              onclick="addToList()"
+            >
+              ＋ My List
+            </button>
+
+          </div>
 
         </div>
 
@@ -2474,80 +1780,67 @@
   </div>
 
 
-  <!-- TOAST -->
+  <!-- =========================
+       TOAST
+  ========================== -->
 
   <div
     class="toast"
     id="toast"
-  ></div>
+  >
+    Done
+  </div>
 
-
-  <!-- =========================
-       JAVASCRIPT
-  ========================= -->
 
   <script>
 
-    /* NAVBAR */
+    /* =========================
+       NAVBAR SCROLL
+    ========================== */
 
-    const navbar =
-      document.getElementById("navbar");
+    const navbar = document.getElementById("navbar");
 
-    window.addEventListener(
-      "scroll",
-      () => {
+    window.addEventListener("scroll", () => {
 
-        if (window.scrollY > 40) {
-
-          navbar.classList.add("scrolled");
-
-        } else {
-
-          navbar.classList.remove("scrolled");
-
-        }
-
+      if (window.scrollY > 30) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
       }
-    );
+
+    });
 
 
-    /* SEARCH */
+    /* =========================
+       POSTER FALLBACK
+    ========================== */
 
-    const searchOverlay =
-      document.getElementById("searchOverlay");
+    function posterError(img, title) {
 
-    const searchInput =
-      document.getElementById("searchInput");
+      const parent = img.parentElement;
 
+      img.style.display = "none";
 
-    function openSearch() {
+      const fallback = document.createElement("div");
 
-      searchOverlay.classList.add("active");
+      fallback.className = "poster-fallback";
 
-      setTimeout(
-        () => {
-          searchInput.focus();
-        },
-        100
-      );
+      fallback.innerHTML = `
+        <div>
+          <strong>${title}</strong>
+          <small>RAJ MOVIES</small>
+        </div>
+      `;
 
+      parent.prepend(fallback);
     }
 
 
-    function closeSearch() {
+    /* =========================
+       MOVIE MODAL
+    ========================== */
 
-      searchOverlay.classList.remove("active");
-
-      searchInput.value = "";
-
-    }
-
-
-    /* MOVIE DETAILS */
-
-    const detailsOverlay =
-      document.getElementById("detailsOverlay");
-
+    let currentMovie = "";
 
     function openMovie(
       title,
@@ -2558,102 +1851,309 @@
       description
     ) {
 
-      document.getElementById(
-        "detailTitle"
-      ).textContent = title;
+      currentMovie = title;
 
-      document.getElementById(
-        "detailRating"
-      ).textContent = rating;
+      document.getElementById("modalTitle").textContent = title;
 
-      document.getElementById(
-        "detailYear"
-      ).textContent = year;
+      document.getElementById("modalRating").textContent =
+        "★ " + rating;
 
-      document.getElementById(
-        "detailDuration"
-      ).textContent = duration;
+      document.getElementById("modalYear").textContent =
+        year;
 
-      document.getElementById(
-        "detailGenre"
-      ).textContent = genre;
+      document.getElementById("modalDuration").textContent =
+        duration;
 
-      document.getElementById(
-        "detailDescription"
-      ).textContent = description;
+      document.getElementById("modalGenre").textContent =
+        genre;
 
+      document.getElementById("modalDescription").textContent =
+        description;
 
-      const posterText =
-        document.getElementById(
-          "detailPosterText"
-        );
+      document.getElementById("modalPosterText").textContent =
+        title.toUpperCase();
 
+      document.getElementById("movieModal")
+        .classList.add("active");
 
-      posterText.textContent =
-        title
-          .toUpperCase()
-          .substring(0,18);
-
-
-      detailsOverlay.classList.add(
-        "active"
-      );
-
-      document.body.style.overflow =
-        "hidden";
-
+      document.body.style.overflow = "hidden";
     }
 
 
     function closeMovie() {
 
-      detailsOverlay.classList.remove(
-        "active"
-      );
+      document.getElementById("movieModal")
+        .classList.remove("active");
 
-      document.body.style.overflow =
-        "";
+      document.body.style.overflow = "";
+    }
+
+
+    function closeModalOutside(event) {
+
+      if (event.target.id === "movieModal") {
+        closeMovie();
+      }
 
     }
 
 
-    /* BACKDROP CLOSE */
+    /* =========================
+       SEARCH
+    ========================== */
 
-    detailsOverlay.addEventListener(
-      "click",
-      function(event) {
+    function openSearch() {
 
-        if (
-          event.target ===
-          detailsOverlay
-        ) {
+      const panel =
+        document.getElementById("searchPanel");
 
-          closeMovie();
+      panel.classList.add("active");
+
+      document.body.style.overflow = "hidden";
+
+      setTimeout(() => {
+
+        document.getElementById("searchInput").focus();
+
+        showAllSearchResults();
+
+      }, 100);
+
+    }
+
+
+    function closeSearch() {
+
+      document.getElementById("searchPanel")
+        .classList.remove("active");
+
+      document.body.style.overflow = "";
+
+      document.getElementById("searchInput").value = "";
+
+    }
+
+
+    function getMovieCards() {
+
+      return Array.from(
+        document.querySelectorAll(".movie-card")
+      );
+
+    }
+
+
+    function showAllSearchResults() {
+
+      const results =
+        document.getElementById("searchResults");
+
+      const cards = getMovieCards();
+
+      results.innerHTML = "";
+
+      cards.forEach(card => {
+
+        createSearchResult(card, results);
+
+      });
+
+    }
+
+
+    function createSearchResult(card, results) {
+
+      const title =
+        card.dataset.title;
+
+      const genre =
+        card.dataset.genre;
+
+      const item =
+        document.createElement("div");
+
+      item.className = "search-result";
+
+      item.innerHTML = `
+        <div>
+          <strong>${title}</strong>
+          <br>
+          <small>${genre}</small>
+        </div>
+
+        <span>›</span>
+      `;
+
+      item.onclick = () => {
+
+        card.click();
+
+        closeSearch();
+
+      };
+
+      results.appendChild(item);
+
+    }
+
+
+    document
+      .getElementById("searchInput")
+      .addEventListener("input", function () {
+
+        const query =
+          this.value.toLowerCase().trim();
+
+        const results =
+          document.getElementById("searchResults");
+
+        const cards =
+          getMovieCards();
+
+        results.innerHTML = "";
+
+        const matches =
+          cards.filter(card => {
+
+            const title =
+              card.dataset.title.toLowerCase();
+
+            const genre =
+              card.dataset.genre.toLowerCase();
+
+            return (
+              title.includes(query) ||
+              genre.includes(query)
+            );
+
+          });
+
+        if (matches.length === 0) {
+
+          results.innerHTML = `
+            <div class="no-results">
+              No movies found for "${this.value}"
+            </div>
+          `;
+
+          return;
+        }
+
+        matches.forEach(card => {
+
+          createSearchResult(card, results);
+
+        });
+
+      });
+
+
+    /* =========================
+       GENRE FILTER
+    ========================== */
+
+    function filterGenre(genre) {
+
+      const cards =
+        getMovieCards();
+
+      cards.forEach(card => {
+
+        const genres =
+          card.dataset.genre.toLowerCase();
+
+        if (genres.includes(genre.toLowerCase())) {
+
+          card.style.display = "";
+
+        } else {
+
+          card.style.display = "none";
 
         }
 
+      });
+
+      document
+        .getElementById("movies")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+      showToast(
+        genre + " movies selected"
+      );
+
+    }
+
+
+    /* =========================
+       MY LIST
+    ========================== */
+
+    function addToList() {
+
+      if (!currentMovie) return;
+
+      let list =
+        JSON.parse(
+          localStorage.getItem("rajMoviesList") || "[]"
+        );
+
+      if (!list.includes(currentMovie)) {
+
+        list.push(currentMovie);
+
+        localStorage.setItem(
+          "rajMoviesList",
+          JSON.stringify(list)
+        );
+
+        showToast(
+          currentMovie + " added to My List ✓"
+        );
+
+      } else {
+
+        showToast(
+          currentMovie + " is already in My List"
+        );
+
       }
-    );
+
+    }
 
 
-    searchOverlay.addEventListener(
-      "click",
-      function(event) {
+    /* =========================
+       TOAST
+    ========================== */
 
-        if (
-          event.target ===
-          searchOverlay
-        ) {
+    let toastTimer;
 
-          closeSearch();
+    function showToast(message) {
 
-        }
+      const toast =
+        document.getElementById("toast");
 
-      }
-    );
+      toast.textContent = message;
+
+      toast.classList.add("show");
+
+      clearTimeout(toastTimer);
+
+      toastTimer =
+        setTimeout(() => {
+
+          toast.classList.remove("show");
+
+        }, 2600);
+
+    }
 
 
-    /* ESC */
+    /* =========================
+       ESC KEY
+    ========================== */
 
     document.addEventListener(
       "keydown",
@@ -2662,73 +2162,12 @@
         if (event.key === "Escape") {
 
           closeMovie();
-
           closeSearch();
 
         }
 
       }
     );
-
-
-    /* TRAILER */
-
-    function showTrailerMessage() {
-
-      showToast(
-        "Official trailer player will be connected here."
-      );
-
-    }
-
-
-    /* MY LIST */
-
-    function addToList() {
-
-      showToast(
-        "Movie added to My List ✓"
-      );
-
-    }
-
-
-    /* TOAST */
-
-    let toastTimer;
-
-
-    function showToast(message) {
-
-      const toast =
-        document.getElementById(
-          "toast"
-        );
-
-      toast.textContent =
-        message;
-
-      toast.classList.add(
-        "show"
-      );
-
-      clearTimeout(
-        toastTimer
-      );
-
-      toastTimer =
-        setTimeout(
-          () => {
-
-            toast.classList.remove(
-              "show"
-            );
-
-          },
-          2500
-        );
-
-    }
 
   </script>
 
