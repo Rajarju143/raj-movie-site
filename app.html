@@ -586,6 +586,39 @@
     </a>
 
   </nav>
+  <!-- MOVIE DETAILS MODAL -->
+<div class="movie-modal" id="movieModal">
+
+  <div class="modal-box">
+
+    <button class="modal-close" onclick="closeMovie()">×</button>
+
+    <div class="modal-number" id="modalNumber">01</div>
+
+    <h2 id="modalTitle">The Last Journey</h2>
+
+    <div class="modal-meta" id="modalMeta">
+      2026 • 2h 18m • HD
+    </div>
+
+    <p class="modal-description" id="modalDescription">
+      A cinematic journey filled with mystery, adventure and unforgettable moments.
+      Discover the story and experience premium entertainment with RAJ MOVIES.
+    </p>
+
+    <div class="modal-actions">
+      <button class="modal-play" onclick="playMovie()">
+        ▶ Play
+      </button>
+
+      <button class="modal-list" onclick="addToList()">
+        ＋ My List
+      </button>
+    </div>
+
+  </div>
+
+</div>
   <script>
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("./sw.js");
