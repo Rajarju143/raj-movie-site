@@ -620,6 +620,105 @@
 
 </div>
   <script>
+  const movieData = {
+    "The Last Journey": {
+      number: "01",
+      meta: "2026 • 2h 18m • HD",
+      description: "A cinematic journey filled with mystery, adventure and unforgettable moments."
+    },
+
+    "Midnight City": {
+      number: "02",
+      meta: "2026 • 1h 54m • HD",
+      description: "A mysterious night in a city where every street hides a new secret."
+    },
+
+    "Beyond Time": {
+      number: "03",
+      meta: "2025 • 2h 05m • 4K",
+      description: "A story that crosses time, destiny and the limits of imagination."
+    },
+
+    "Dark Horizon": {
+      number: "04",
+      meta: "2026 • 2h 11m • HD",
+      description: "When darkness approaches, one final decision changes everything."
+    },
+
+    "Empire": {
+      number: "05",
+      meta: "2025 • 2h 20m • HD",
+      description: "Power, ambition and loyalty collide in a cinematic battle for an empire."
+    },
+
+    "Neon Nights": {
+      number: "01",
+      meta: "2026 • 2h 05m • HD",
+      description: "A stylish story of dreams, danger and unexpected connections after dark."
+    },
+
+    "Final Code": {
+      number: "02",
+      meta: "2026 • 1h 58m • 4K",
+      description: "A race against time begins when a mysterious code changes everything."
+    },
+
+    "Lost World": {
+      number: "03",
+      meta: "2025 • 2h 14m • HD",
+      description: "An extraordinary adventure into a world hidden beyond the known."
+    },
+
+    "Silent Love": {
+      number: "04",
+      meta: "2026 • 1h 46m • HD",
+      description: "Sometimes the strongest stories are the ones never spoken aloud."
+    },
+
+    "The Escape": {
+      number: "05",
+      meta: "2025 • 2h 08m • 4K",
+      description: "One impossible escape. One final chance. One decision that changes everything."
+    }
+  };
+
+  const modal = document.getElementById("movieModal");
+
+  document.querySelectorAll(".movie").forEach(card => {
+    card.addEventListener("click", () => {
+      const title = card.querySelector("h3").textContent.trim();
+      const data = movieData[title];
+
+      if (!data) return;
+
+      document.getElementById("modalNumber").textContent = data.number;
+      document.getElementById("modalTitle").textContent = title;
+      document.getElementById("modalMeta").textContent = data.meta;
+      document.getElementById("modalDescription").textContent = data.description;
+
+      modal.classList.add("show");
+    });
+  });
+
+  function closeMovie() {
+    modal.classList.remove("show");
+  }
+
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      closeMovie();
+    }
+  });
+
+  function playMovie() {
+    alert("Play feature will be connected later.");
+  }
+
+  function addToList() {
+    alert("Added to My List.");
+  }
+</script>
+  <script>
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("./sw.js");
   }
