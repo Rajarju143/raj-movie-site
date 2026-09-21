@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>RAJ MOVIES — Premium Cinema</title>
-
-  <meta
-    name="description"
-    content="RAJ MOVIES — Premium cinematic movie discovery platform."
-  >
+  <title>RAJ MOVIES</title>
 
   <style>
+
+    /* =====================================================
+       RESET
+    ===================================================== */
+
     * {
       margin: 0;
       padding: 0;
@@ -19,15 +19,21 @@
     }
 
     :root {
-      --bg: #050505;
-      --bg-soft: #0b0b0b;
-      --card: #111111;
-      --text: #ffffff;
-      --muted: #a7a7a7;
+      --black: #050505;
+      --black-2: #080808;
+      --black-3: #101010;
+      --card: #151515;
+
+      --white: #ffffff;
+      --gray: #b3b3b3;
+      --gray-2: #777777;
+
       --red: #e50914;
-      --red-dark: #a80710;
-      --gold: #d9b56d;
-      --border: rgba(255,255,255,.09);
+      --red-dark: #b20710;
+      --red-light: #ff1f2d;
+
+      --border: rgba(255,255,255,0.09);
+      --glass: rgba(255,255,255,0.045);
     }
 
     html {
@@ -35,10 +41,8 @@
     }
 
     body {
-      background:
-        radial-gradient(circle at 50% -20%, rgba(229,9,20,.12), transparent 35%),
-        #050505;
-      color: white;
+      background: var(--black);
+      color: var(--white);
       font-family: Arial, Helvetica, sans-serif;
       overflow-x: hidden;
     }
@@ -49,21 +53,46 @@
     }
 
     button {
-      border: none;
       cursor: pointer;
     }
 
-    /* =========================
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* =====================================================
+       SCROLLBAR
+    ===================================================== */
+
+    ::-webkit-scrollbar {
+      width: 7px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #050505;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 20px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--red);
+    }
+
+    /* =====================================================
        NAVBAR
-    ========================== */
+    ===================================================== */
 
     .navbar {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      height: 74px;
-      z-index: 1000;
+
+      height: 72px;
 
       display: flex;
       align-items: center;
@@ -71,274 +100,373 @@
 
       padding: 0 5%;
 
-      transition: .3s ease;
+      z-index: 1000;
 
       background:
         linear-gradient(
-          to bottom,
-          rgba(0,0,0,.92),
-          rgba(0,0,0,.55),
+          180deg,
+          rgba(0,0,0,0.96),
+          rgba(0,0,0,0.65),
           transparent
         );
+
+      transition: 0.3s ease;
     }
 
     .navbar.scrolled {
-      background: rgba(5,5,5,.96);
+      background: rgba(5,5,5,0.94);
       backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border);
     }
+
+    /* LOGO */
 
     .logo {
       font-size: 25px;
       font-weight: 900;
       letter-spacing: 2px;
-      color: white;
-      white-space: nowrap;
     }
 
     .logo span {
       color: var(--red);
     }
 
+    /* NAV LINKS */
+
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 30px;
       margin-left: 40px;
       margin-right: auto;
     }
 
     .nav-links a {
-      color: #d5d5d5;
-      text-decoration: none;
+      color: #d8d8d8;
       font-size: 14px;
-      transition: .25s;
+      transition: 0.2s;
     }
 
     .nav-links a:hover {
       color: white;
     }
 
+    .nav-links a.active {
+      color: white;
+      font-weight: 700;
+    }
+
+    /* NAV RIGHT */
+
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 15px;
     }
 
     .search-btn {
       width: 40px;
       height: 40px;
-      border-radius: 50%;
+
+      border: none;
+      background: transparent;
       color: white;
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.1);
-      transition: .25s;
+
+      font-size: 19px;
+
+      border-radius: 50%;
+
+      transition: 0.2s;
     }
 
     .search-btn:hover {
-      background: var(--red);
-      transform: scale(1.05);
+      background: rgba(255,255,255,0.08);
     }
 
-    .avatar {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
+    .profile {
+      width: 35px;
+      height: 35px;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: grid;
+      place-items: center;
 
-      font-weight: bold;
-      font-size: 14px;
+      border-radius: 6px;
 
       background:
-        linear-gradient(135deg, #333, #111);
+        linear-gradient(
+          135deg,
+          var(--red),
+          var(--red-dark)
+        );
 
-      border: 1px solid rgba(255,255,255,.18);
+      font-size: 14px;
+      font-weight: 900;
     }
 
-    /* =========================
+    /* =====================================================
        HERO
-    ========================== */
+    ===================================================== */
 
     .hero {
-      min-height: 720px;
+      min-height: 760px;
+
       position: relative;
 
       display: flex;
       align-items: center;
 
-      padding: 120px 7% 80px;
+      padding:
+        130px 7%
+        90px;
 
       overflow: hidden;
-    }
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
 
       background:
-        linear-gradient(
-          90deg,
-          #050505 0%,
-          rgba(5,5,5,.88) 28%,
-          rgba(5,5,5,.40) 60%,
-          rgba(5,5,5,.15) 100%
-        ),
-        linear-gradient(
-          0deg,
-          #050505 0%,
-          transparent 35%,
-          rgba(0,0,0,.3) 100%
+        radial-gradient(
+          circle at 80% 35%,
+          rgba(229,9,20,0.16),
+          transparent 28%
         ),
         radial-gradient(
-          circle at 75% 42%,
-          rgba(150,30,40,.35),
-          transparent 25%
-        );
-
-      z-index: -1;
+          circle at 30% 50%,
+          rgba(255,255,255,0.025),
+          transparent 35%
+        ),
+        #050505;
     }
+
+    /* CINEMATIC ABSTRACT BACKGROUND */
 
     .hero-art {
       position: absolute;
-      right: 0;
-      top: 0;
-      width: 58%;
-      height: 100%;
+
+      right: -100px;
+      top: 80px;
+
+      width: 650px;
+      height: 650px;
+
+      border-radius: 50%;
 
       background:
         radial-gradient(
-          circle at 60% 45%,
-          rgba(229,9,20,.45),
-          transparent 18%
-        ),
-        radial-gradient(
-          circle at 75% 30%,
-          rgba(100,80,120,.32),
-          transparent 25%
+          circle,
+          rgba(229,9,20,0.25),
+          rgba(229,9,20,0.05) 38%,
+          transparent 70%
         );
 
-      opacity: .8;
-      z-index: -2;
+      filter: blur(20px);
+
+      opacity: 0.8;
+    }
+
+    .hero-art::before {
+      content: "";
+
+      position: absolute;
+
+      width: 380px;
+      height: 380px;
+
+      top: 100px;
+      right: 80px;
+
+      border-radius: 50%;
+
+      border:
+        1px solid rgba(229,9,20,0.25);
+
+      box-shadow:
+        0 0 100px rgba(229,9,20,0.15);
     }
 
     .hero-art::after {
       content: "";
+
       position: absolute;
-      inset: 0;
+
+      width: 180px;
+      height: 180px;
+
+      top: 200px;
+      right: 180px;
+
+      border-radius: 50%;
 
       background:
-        linear-gradient(
-          90deg,
-          #050505,
-          transparent 40%
+        radial-gradient(
+          circle,
+          rgba(229,9,20,0.3),
+          transparent 70%
         );
     }
 
     .hero-content {
-      max-width: 610px;
+      position: relative;
+      z-index: 2;
+
+      max-width: 650px;
     }
 
-    .eyebrow {
-      color: var(--gold);
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      color: #ddd;
+
       font-size: 12px;
-      letter-spacing: 4px;
-      font-weight: 700;
-      margin-bottom: 18px;
+      font-weight: 800;
+
+      letter-spacing: 3px;
+
+      margin-bottom: 20px;
+    }
+
+    .hero-label::before {
+      content: "";
+
+      width: 25px;
+      height: 2px;
+
+      background: var(--red);
     }
 
     .hero h1 {
-      font-size: clamp(48px, 7vw, 92px);
-      line-height: .9;
-      letter-spacing: -4px;
-      margin-bottom: 22px;
+      font-size: clamp(55px, 9vw, 105px);
+
+      line-height: 0.9;
+
+      letter-spacing: -5px;
+
+      font-weight: 900;
+
+      margin-bottom: 25px;
+    }
+
+    .hero h1 span {
+      color: var(--red);
     }
 
     .hero-meta {
       display: flex;
-      gap: 13px;
       align-items: center;
-      flex-wrap: wrap;
-      color: #ddd;
+      gap: 16px;
+
+      color: #bbb;
+
       font-size: 14px;
+
       margin-bottom: 20px;
     }
 
     .rating {
-      color: #ffd76a;
-      font-weight: bold;
+      color: #46d369;
+      font-weight: 800;
     }
 
     .hero-description {
-      color: #c3c3c3;
-      font-size: 16px;
-      line-height: 1.7;
       max-width: 570px;
+
+      color: #aaa;
+
+      line-height: 1.7;
+
+      font-size: 15px;
+
       margin-bottom: 30px;
     }
 
+    /* =====================================================
+       BUTTONS
+    ===================================================== */
+
     .hero-buttons {
       display: flex;
-      gap: 12px;
       flex-wrap: wrap;
+      gap: 12px;
     }
 
     .btn {
-      min-height: 48px;
-      padding: 0 22px;
-      border-radius: 6px;
+      min-height: 46px;
+
+      padding: 0 21px;
+
+      border-radius: 5px;
+
+      border: none;
 
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 9px;
+      gap: 8px;
 
-      font-weight: 700;
-      transition: .25s;
+      font-size: 14px;
+      font-weight: 800;
+
+      transition:
+        transform 0.2s,
+        background 0.2s,
+        box-shadow 0.2s;
     }
 
-    .btn-primary {
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-red {
+      background: var(--red);
+      color: white;
+
+      box-shadow:
+        0 10px 30px rgba(229,9,20,0.18);
+    }
+
+    .btn-red:hover {
+      background: var(--red-light);
+    }
+
+    .btn-white {
       background: white;
       color: black;
     }
 
-    .btn-primary:hover {
-      background: #e5e5e5;
-      transform: translateY(-2px);
-    }
-
     .btn-dark {
-      background: rgba(255,255,255,.12);
+      background: rgba(255,255,255,0.08);
+
+      border:
+        1px solid rgba(255,255,255,0.12);
+
       color: white;
-      border: 1px solid rgba(255,255,255,.12);
-      backdrop-filter: blur(10px);
     }
 
     .btn-dark:hover {
-      background: rgba(255,255,255,.2);
-      transform: translateY(-2px);
+      background: rgba(255,255,255,0.13);
     }
 
-    /* =========================
+    /* =====================================================
        SECTIONS
-    ========================== */
+    ===================================================== */
 
     .section {
-      padding: 10px 5% 35px;
       position: relative;
+      z-index: 5;
+
+      padding:
+        65px 5%;
     }
 
-    .section-header {
+    .section-head {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 17px;
+      justify-content: space-between;
+
+      margin-bottom: 25px;
     }
 
     .section-title {
-      font-size: 23px;
+      font-size: 25px;
       font-weight: 800;
     }
 
@@ -347,390 +475,325 @@
     }
 
     .view-all {
-      color: #999;
+      color: #aaa;
       font-size: 13px;
-      cursor: pointer;
+
+      transition: 0.2s;
     }
 
     .view-all:hover {
       color: white;
     }
 
-    /* =========================
+    /* =====================================================
        MOVIE ROW
-    ========================== */
+    ===================================================== */
 
     .movie-row {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 15px;
+
+      grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+      gap: 17px;
     }
+
+    /* =====================================================
+       MOVIE CARD
+    ===================================================== */
 
     .movie-card {
       position: relative;
-      aspect-ratio: 2 / 3;
+
+      min-width: 0;
 
       overflow: hidden;
-      border-radius: 8px;
 
-      background: #151515;
-      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 7px;
+
+      background: var(--card);
+
+      border:
+        1px solid rgba(255,255,255,0.06);
 
       cursor: pointer;
 
       transition:
-        transform .3s ease,
-        box-shadow .3s ease,
-        border-color .3s ease;
+        transform 0.3s,
+        box-shadow 0.3s,
+        border-color 0.3s;
     }
 
     .movie-card:hover {
-      transform: translateY(-8px) scale(1.025);
+      transform: scale(1.035);
+
+      z-index: 10;
+
+      border-color:
+        rgba(229,9,20,0.5);
+
       box-shadow:
-        0 20px 50px rgba(0,0,0,.7),
-        0 0 35px rgba(229,9,20,.14);
-      border-color: rgba(229,9,20,.45);
-      z-index: 3;
+        0 25px 55px rgba(0,0,0,0.6);
     }
 
-    .movie-poster {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+    /* NO IMAGE YET */
 
-      transition: transform .5s ease;
-    }
+    .poster-placeholder {
+      aspect-ratio: 2 / 3;
 
-    .movie-card:hover .movie-poster {
-      transform: scale(1.07);
-    }
-
-    .poster-fallback {
-      position: absolute;
-      inset: 0;
+      position: relative;
 
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
 
-      padding: 25px;
+      overflow: hidden;
 
       background:
-        radial-gradient(
-          circle at 50% 20%,
-          rgba(229,9,20,.45),
-          transparent 35%
-        ),
         linear-gradient(
           145deg,
-          #262626,
+          #1d1d1d,
           #090909
         );
     }
 
-    .poster-fallback strong {
-      font-size: 22px;
-      line-height: 1.1;
-      letter-spacing: 1px;
-    }
+    .poster-placeholder::before {
+      content: "";
 
-    .poster-fallback small {
-      display: block;
-      margin-top: 8px;
-      color: #aaa;
-      letter-spacing: 2px;
-    }
-
-    .movie-overlay {
       position: absolute;
-      inset: 0;
 
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
+      width: 120px;
+      height: 120px;
 
-      padding: 17px;
+      border-radius: 50%;
 
       background:
-        linear-gradient(
-          transparent 25%,
-          rgba(0,0,0,.25) 45%,
-          rgba(0,0,0,.95) 100%
+        radial-gradient(
+          circle,
+          rgba(229,9,20,0.22),
+          transparent 70%
         );
     }
 
+    .poster-placeholder::after {
+      content: "RAJ";
+
+      position: absolute;
+
+      color: rgba(255,255,255,0.06);
+
+      font-size: 50px;
+
+      font-weight: 900;
+
+      letter-spacing: 5px;
+    }
+
+    .poster-number {
+      position: relative;
+      z-index: 2;
+
+      color: rgba(255,255,255,0.22);
+
+      font-size: 48px;
+      font-weight: 900;
+    }
+
     .movie-info {
-      transform: translateY(4px);
+      padding: 13px;
     }
 
     .movie-title {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 800;
-      margin-bottom: 6px;
+
+      margin-bottom: 7px;
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .movie-meta {
       display: flex;
-      gap: 8px;
-      color: #cfcfcf;
-      font-size: 11px;
       align-items: center;
-      flex-wrap: wrap;
+      justify-content: space-between;
+
+      color: #777;
+
+      font-size: 11px;
     }
 
     .movie-rating {
-      color: #ffd35e;
+      color: #46d369;
       font-weight: 700;
     }
 
-    .badge {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-
-      padding: 5px 8px;
-      border-radius: 4px;
-
-      background: rgba(229,9,20,.92);
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: 1px;
-    }
-
-    /* =========================
+    /* =====================================================
        FEATURE
-    ========================== */
+    ===================================================== */
 
     .feature {
-      margin: 35px 5%;
+      margin:
+        15px 5%
+        70px;
+
+      padding: 65px;
+
       min-height: 300px;
 
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 12px;
-
       position: relative;
+
       overflow: hidden;
+
+      border-radius: 14px;
+
+      border:
+        1px solid rgba(255,255,255,0.08);
 
       background:
         radial-gradient(
-          circle at 75% 40%,
-          rgba(229,9,20,.25),
-          transparent 28%
+          circle at 85% 50%,
+          rgba(229,9,20,0.18),
+          transparent 30%
         ),
         linear-gradient(
-          110deg,
+          135deg,
           #151515,
           #080808
         );
     }
 
+    .feature::before {
+      content: "";
+
+      position: absolute;
+
+      width: 350px;
+      height: 350px;
+
+      right: -100px;
+      top: -100px;
+
+      border-radius: 50%;
+
+      border:
+        1px solid rgba(229,9,20,0.18);
+
+      box-shadow:
+        0 0 100px rgba(229,9,20,0.1);
+    }
+
     .feature-content {
-      padding: 55px 6%;
-      max-width: 650px;
+      position: relative;
+      z-index: 2;
+
+      max-width: 570px;
     }
 
     .feature-label {
       color: var(--red);
+
       font-size: 11px;
-      font-weight: 800;
+      font-weight: 900;
+
       letter-spacing: 3px;
-      margin-bottom: 13px;
+
+      margin-bottom: 14px;
     }
 
     .feature h2 {
-      font-size: clamp(30px, 4vw, 50px);
-      margin-bottom: 13px;
+      font-size: clamp(35px, 5vw, 62px);
+
+      line-height: 0.95;
+
+      letter-spacing: -3px;
+
+      margin-bottom: 18px;
     }
 
     .feature p {
-      color: #aaa;
+      color: #999;
+
       line-height: 1.7;
-      margin-bottom: 20px;
+
+      margin-bottom: 25px;
     }
 
-    /* =========================
+    /* =====================================================
        GENRES
-    ========================== */
+    ===================================================== */
 
-    .genre-row {
+    .genre-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
+
+      grid-template-columns:
+        repeat(6, 1fr);
+
+      gap: 12px;
     }
 
     .genre {
-      height: 105px;
-      border-radius: 9px;
+      min-height: 90px;
+
+      border:
+        1px solid rgba(255,255,255,0.07);
+
+      border-radius: 8px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #151515,
+          #0b0b0b
+        );
+
+      color: #ddd;
 
       display: flex;
-      align-items: flex-end;
+      align-items: center;
+      justify-content: center;
 
-      padding: 18px;
+      font-weight: 700;
 
-      position: relative;
-      overflow: hidden;
-
-      cursor: pointer;
-
-      border: 1px solid rgba(255,255,255,.08);
-
-      transition: .3s;
+      transition: 0.25s;
     }
 
     .genre:hover {
-      transform: translateY(-4px);
-      border-color: rgba(255,255,255,.22);
-    }
+      border-color: var(--red);
 
-    .genre::before {
-      content: "";
-      position: absolute;
-      inset: 0;
+      color: white;
 
       background:
-        radial-gradient(
-          circle at 75% 25%,
-          rgba(255,255,255,.18),
-          transparent 30%
+        linear-gradient(
+          145deg,
+          rgba(229,9,20,0.15),
+          #0b0b0b
         );
     }
 
-    .genre:nth-child(1) {
-      background: linear-gradient(135deg, #3b0c0c, #100707);
-    }
-
-    .genre:nth-child(2) {
-      background: linear-gradient(135deg, #10233b, #070c13);
-    }
-
-    .genre:nth-child(3) {
-      background: linear-gradient(135deg, #30210b, #100c06);
-    }
-
-    .genre:nth-child(4) {
-      background: linear-gradient(135deg, #24112c, #0b070e);
-    }
-
-    .genre strong {
-      position: relative;
-      font-size: 18px;
-    }
-
-    /* =========================
-       SEARCH
-    ========================== */
-
-    .search-panel {
-      position: fixed;
-      inset: 0;
-      z-index: 2000;
-
-      background: rgba(0,0,0,.88);
-      backdrop-filter: blur(18px);
-
-      display: none;
-      align-items: flex-start;
-      justify-content: center;
-
-      padding: 120px 5%;
-    }
-
-    .search-panel.active {
-      display: flex;
-    }
-
-    .search-box {
-      width: min(800px, 100%);
-    }
-
-    .search-top {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      border-bottom: 1px solid rgba(255,255,255,.25);
-      padding-bottom: 15px;
-    }
-
-    .search-input {
-      flex: 1;
-
-      background: transparent;
-      border: none;
-      outline: none;
-
-      color: white;
-      font-size: 30px;
-    }
-
-    .search-input::placeholder {
-      color: #666;
-    }
-
-    .close-search {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-
-      background: rgba(255,255,255,.08);
-      color: white;
-
-      font-size: 22px;
-    }
-
-    .search-results {
-      margin-top: 25px;
-      display: grid;
-      gap: 10px;
-      max-height: 60vh;
-      overflow-y: auto;
-    }
-
-    .search-result {
-      padding: 15px 18px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.07);
-      border-radius: 8px;
-
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      cursor: pointer;
-    }
-
-    .search-result:hover {
-      background: rgba(255,255,255,.11);
-    }
-
-    .search-result small {
-      color: #999;
-    }
-
-    .no-results {
-      color: #888;
-      text-align: center;
-      padding: 30px;
-    }
-
-    /* =========================
-       MOVIE MODAL
-    ========================== */
+    /* =====================================================
+       MODAL
+    ===================================================== */
 
     .modal {
       position: fixed;
+
       inset: 0;
+
       z-index: 3000;
 
-      background: rgba(0,0,0,.82);
-      backdrop-filter: blur(12px);
-
       display: none;
+
       align-items: center;
       justify-content: center;
 
-      padding: 25px;
+      padding: 20px;
+
+      background:
+        rgba(0,0,0,0.82);
+
+      backdrop-filter: blur(12px);
     }
 
     .modal.active {
@@ -738,186 +801,375 @@
     }
 
     .modal-box {
-      width: min(900px, 100%);
+      width: min(850px, 100%);
+
       max-height: 90vh;
 
       overflow: auto;
+
+      position: relative;
 
       border-radius: 14px;
 
       background:
         linear-gradient(
-          135deg,
-          #181818,
+          145deg,
+          #171717,
           #090909
         );
 
-      border: 1px solid rgba(255,255,255,.1);
+      border:
+        1px solid rgba(255,255,255,0.1);
 
-      box-shadow: 0 30px 100px rgba(0,0,0,.8);
-
-      position: relative;
+      box-shadow:
+        0 40px 100px rgba(0,0,0,0.75);
     }
 
     .modal-close {
       position: absolute;
-      top: 16px;
-      right: 16px;
+
+      top: 15px;
+      right: 15px;
 
       width: 40px;
       height: 40px;
 
+      z-index: 5;
+
+      border: none;
+
       border-radius: 50%;
 
-      background: rgba(0,0,0,.65);
+      background:
+        rgba(0,0,0,0.75);
+
       color: white;
 
-      font-size: 20px;
-      z-index: 3;
+      font-size: 17px;
     }
 
     .modal-content {
       display: grid;
-      grid-template-columns: 270px 1fr;
-      gap: 30px;
-      padding: 35px;
+
+      grid-template-columns:
+        220px 1fr;
+
+      gap: 28px;
+
+      padding: 32px;
     }
 
     .modal-poster {
       aspect-ratio: 2 / 3;
-      border-radius: 8px;
-      overflow: hidden;
-      background: #151515;
-    }
 
-    .modal-poster img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      border-radius: 8px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #222,
+          #090909
+        );
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: rgba(255,255,255,0.15);
+
+      font-size: 45px;
+      font-weight: 900;
     }
 
     .modal-info {
-      align-self: center;
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+    }
+
+    .modal-label {
+      color: var(--red);
+
+      font-size: 11px;
+      font-weight: 900;
+
+      letter-spacing: 3px;
+
+      margin-bottom: 10px;
     }
 
     .modal-info h2 {
-      font-size: clamp(32px, 5vw, 55px);
-      line-height: .95;
-      margin-bottom: 17px;
-    }
+      font-size: 38px;
 
-    .modal-meta {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      color: #bbb;
-      margin-bottom: 18px;
-      font-size: 13px;
+      margin-bottom: 13px;
     }
 
     .modal-description {
-      color: #aaa;
-      line-height: 1.8;
-      margin-bottom: 25px;
+      color: #999;
+
+      line-height: 1.7;
+
+      margin:
+        15px 0 22px;
     }
 
     .tags {
       display: flex;
-      gap: 7px;
       flex-wrap: wrap;
-      margin-bottom: 25px;
+
+      gap: 7px;
+
+      margin-bottom: 23px;
     }
 
     .tag {
       padding: 6px 10px;
-      border-radius: 5px;
-      background: rgba(255,255,255,.08);
-      color: #bbb;
+
+      border-radius: 4px;
+
+      background:
+        rgba(255,255,255,0.06);
+
+      border:
+        1px solid rgba(255,255,255,0.08);
+
+      color: #aaa;
+
       font-size: 11px;
     }
 
-    /* =========================
+    .modal-buttons {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 10px;
+    }
+
+    .modal-buttons .btn {
+      width: 100%;
+    }
+
+    /* =====================================================
+       SEARCH
+    ===================================================== */
+
+    .search-overlay {
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 2500;
+
+      display: none;
+
+      padding:
+        100px 7% 30px;
+
+      background:
+        rgba(0,0,0,0.97);
+    }
+
+    .search-overlay.active {
+      display: block;
+    }
+
+    .search-container {
+      max-width: 850px;
+
+      margin: auto;
+    }
+
+    .search-top {
+      display: flex;
+
+      gap: 10px;
+    }
+
+    .search-input {
+      flex: 1;
+
+      height: 60px;
+
+      border:
+        1px solid rgba(255,255,255,0.12);
+
+      border-radius: 5px;
+
+      outline: none;
+
+      background:
+        rgba(255,255,255,0.06);
+
+      color: white;
+
+      padding: 0 18px;
+
+      font-size: 19px;
+    }
+
+    .search-input:focus {
+      border-color: var(--red);
+    }
+
+    .search-close {
+      width: 60px;
+
+      border: none;
+
+      border-radius: 5px;
+
+      background: #222;
+
+      color: white;
+    }
+
+    .search-results {
+      margin-top: 20px;
+    }
+
+    .search-result {
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 16px;
+
+      margin-bottom: 8px;
+
+      border:
+        1px solid rgba(255,255,255,0.06);
+
+      border-radius: 6px;
+
+      background: rgba(255,255,255,0.035);
+
+      cursor: pointer;
+    }
+
+    .search-result:hover {
+      background:
+        rgba(229,9,20,0.1);
+
+      border-color:
+        rgba(229,9,20,0.3);
+    }
+
+    .search-result small {
+      color: #777;
+    }
+
+    /* =====================================================
        TOAST
-    ========================== */
+    ===================================================== */
 
     .toast {
       position: fixed;
+
       left: 50%;
       bottom: 25px;
 
-      transform: translate(-50%, 100px);
-
-      background: #fff;
-      color: #111;
-
-      padding: 13px 20px;
-      border-radius: 8px;
-
-      font-size: 13px;
-      font-weight: 700;
-
       z-index: 5000;
 
-      transition: .35s;
-      box-shadow: 0 10px 35px rgba(0,0,0,.5);
+      transform:
+        translate(-50%, 100px);
+
+      opacity: 0;
+
+      padding:
+        13px 18px;
+
+      border-radius: 6px;
+
+      background:
+        #181818;
+
+      border:
+        1px solid rgba(255,255,255,0.1);
+
+      color: white;
+
+      font-size: 13px;
+
+      transition: 0.3s;
     }
 
     .toast.show {
-      transform: translate(-50%, 0);
+      transform:
+        translate(-50%, 0);
+
+      opacity: 1;
     }
 
-    /* =========================
+    /* =====================================================
        FOOTER
-    ========================== */
+    ===================================================== */
 
     footer {
-      margin-top: 60px;
-      padding: 50px 5% 35px;
+      margin-top: 30px;
 
-      border-top: 1px solid rgba(255,255,255,.07);
+      padding:
+        55px 5%;
 
-      color: #777;
+      border-top:
+        1px solid rgba(255,255,255,0.07);
+
       text-align: center;
+
+      color: #555;
+
+      font-size: 13px;
     }
 
     footer strong {
       color: white;
+
+      font-size: 18px;
+
       letter-spacing: 2px;
     }
 
-    footer p {
-      margin-top: 10px;
-      font-size: 12px;
+    footer strong span {
+      color: var(--red);
     }
 
-    /* =========================
-       RESPONSIVE
-    ========================== */
+    /* =====================================================
+       TABLET
+    ===================================================== */
 
-    @media (max-width: 1000px) {
+    @media (max-width: 1100px) {
 
       .movie-row {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns:
+          repeat(4, 1fr);
       }
 
-      .nav-links {
-        gap: 15px;
+      .genre-grid {
+        grid-template-columns:
+          repeat(3, 1fr);
       }
 
-      .modal-content {
-        grid-template-columns: 220px 1fr;
-      }
     }
 
-    @media (max-width: 750px) {
+    /* =====================================================
+       MOBILE
+    ===================================================== */
+
+    @media (max-width: 700px) {
 
       .navbar {
-        height: 64px;
-        padding: 0 18px;
+        height: 65px;
+
+        padding:
+          0 18px;
       }
 
       .logo {
-        font-size: 20px;
+        font-size: 19px;
       }
 
       .nav-links {
@@ -925,107 +1177,206 @@
       }
 
       .hero {
-        min-height: 680px;
-        padding: 120px 20px 70px;
+        min-height: 690px;
+
+        padding:
+          120px 20px 55px;
+
         align-items: flex-end;
       }
 
       .hero-art {
-        width: 100%;
-        height: 70%;
-        opacity: .55;
+        width: 400px;
+        height: 400px;
+
+        right: -180px;
+        top: 160px;
       }
 
       .hero h1 {
-        font-size: 54px;
+        font-size: 56px;
+
         letter-spacing: -3px;
       }
 
       .hero-description {
-        font-size: 14px;
+        font-size: 13px;
+      }
+
+      .hero-buttons {
+        display: grid;
+
+        grid-template-columns:
+          1fr 1fr;
+
+        gap: 9px;
+
+        width: 100%;
+      }
+
+      .hero-buttons .btn {
+        width: 100%;
+
+        padding:
+          0 8px;
+
+        font-size: 12px;
       }
 
       .section {
-        padding-left: 18px;
-        padding-right: 18px;
+        padding:
+          50px 18px;
+      }
+
+      .section-title {
+        font-size: 22px;
       }
 
       .movie-row {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns:
+          repeat(2, 1fr);
+
         gap: 10px;
       }
 
+      .movie-info {
+        padding: 10px;
+      }
+
+      .movie-title {
+        font-size: 12px;
+      }
+
+      .movie-meta {
+        font-size: 9px;
+      }
+
       .feature {
-        margin-left: 18px;
-        margin-right: 18px;
+        margin:
+          10px 18px 55px;
+
+        padding:
+          45px 25px;
+
+        min-height: 350px;
       }
 
-      .feature-content {
-        padding: 40px 25px;
+      .feature h2 {
+        font-size: 43px;
       }
 
-      .genre-row {
-        grid-template-columns: repeat(2, 1fr);
+      .genre-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .genre {
+        min-height: 75px;
+
+        font-size: 13px;
       }
 
       .modal {
-        padding: 12px;
+        padding: 10px;
+      }
+
+      .modal-box {
+        max-height: 94vh;
       }
 
       .modal-content {
         grid-template-columns: 1fr;
-        padding: 25px;
+
+        padding:
+          25px 18px;
+
+        gap: 20px;
       }
 
       .modal-poster {
-        width: 180px;
-        margin: 0 auto;
+        width: 150px;
+
+        margin:
+          0 auto;
       }
 
       .modal-info {
         text-align: center;
       }
 
+      .modal-info h2 {
+        font-size: 28px;
+      }
+
       .tags {
         justify-content: center;
       }
 
-      .hero-buttons {
-        width: 100%;
+      /* EXACT 2 x 2 MOBILE BUTTONS */
+
+      .modal-buttons {
+        display: grid;
+
+        grid-template-columns:
+          1fr 1fr;
+
+        gap: 9px;
       }
 
-      .hero-buttons .btn {
-  width: 100%;
-  flex: none;
-}
+      .modal-buttons .btn {
+        width: 100%;
+
+        min-height: 48px;
+
+        padding:
+          0 7px;
+
+        font-size: 11px;
+      }
+
+      .search-overlay {
+        padding:
+          85px 18px 30px;
+      }
 
       .search-input {
-        font-size: 22px;
+        height: 55px;
+
+        font-size: 17px;
       }
+
+      .search-close {
+        width: 55px;
+      }
+
     }
 
     @media (max-width: 390px) {
 
-      .movie-title {
-        font-size: 14px;
+      .hero h1 {
+        font-size: 47px;
       }
 
-      .movie-meta {
+      .hero-meta {
+        gap: 10px;
+      }
+
+      .modal-buttons .btn {
         font-size: 10px;
       }
 
-      .hero h1 {
-        font-size: 46px;
-      }
     }
+
   </style>
 </head>
 
+
 <body>
 
-  <!-- =========================
+
+  <!-- =====================================================
        NAVBAR
-  ========================== -->
+  ===================================================== -->
 
   <header class="navbar" id="navbar">
 
@@ -1034,10 +1385,26 @@
     </div>
 
     <nav class="nav-links">
-      <a href="#home">Home</a>
-      <a href="#trending">Trending</a>
-      <a href="#movies">Movies</a>
-      <a href="#genres">Genres</a>
+
+      <a
+        href="#home"
+        class="active"
+      >
+        Home
+      </a>
+
+      <a href="#trending">
+        Trending
+      </a>
+
+      <a href="#movies">
+        Movies
+      </a>
+
+      <a href="#genres">
+        Genres
+      </a>
+
     </nav>
 
     <div class="nav-right">
@@ -1045,12 +1412,11 @@
       <button
         class="search-btn"
         onclick="openSearch()"
-        aria-label="Search"
       >
         🔍
       </button>
 
-      <div class="avatar">
+      <div class="profile">
         R
       </div>
 
@@ -1059,60 +1425,72 @@
   </header>
 
 
-  <!-- =========================
+  <!-- =====================================================
        HERO
-  ========================== -->
+  ===================================================== -->
 
-  <section class="hero" id="home">
+  <section
+    class="hero"
+    id="home"
+  >
 
-    <div class="hero-bg"></div>
     <div class="hero-art"></div>
 
     <div class="hero-content">
 
-      <div class="eyebrow">
+      <div class="hero-label">
         RAJ MOVIES ORIGINAL
       </div>
 
       <h1>
         THE LAST<br>
-        JOURNEY
+        <span>JOURNEY</span>
       </h1>
 
       <div class="hero-meta">
-        <span class="rating">★ 8.9</span>
-        <span>2026</span>
-        <span>2h 18m</span>
-        <span>Action</span>
+
+        <span class="rating">
+          ★ 8.9
+        </span>
+
+        <span>
+          2026
+        </span>
+
+        <span>
+          2h 18m
+        </span>
+
+        <span>
+          16+
+        </span>
+
+        <span>
+          HD
+        </span>
+
       </div>
 
       <p class="hero-description">
-        A mysterious journey begins when an ordinary man discovers
-        a secret that could change everything. One final mission.
-        One impossible choice.
+        A premium cinematic experience built for movie lovers.
+        Discover stories, explore genres and experience a luxury
+        movie platform with the RAJ MOVIES interface.
       </p>
 
       <div class="hero-buttons">
 
         <button
-          class="btn btn-primary"
-          onclick="showToast('Trailer player will be connected here.')"
+          class="btn btn-white"
+          onclick="openMovie('The Last Journey')"
         >
-          ▶ Watch Now
+          ▶ Play
         </button>
 
         <button
           class="btn btn-dark"
-          onclick="openMovie(
-            'The Last Journey',
-            '8.9',
-            '2026',
-            '2h 18m',
-            'Action',
-            'A mysterious journey begins when an ordinary man discovers a secret that could change everything.'
-          )"
+          onclick="openMovie('The Last Journey')"
         >
-          ＋ More Info
+          ⓘ More Info
         </button>
 
       </div>
@@ -1122,434 +1500,226 @@
   </section>
 
 
-  <!-- =========================
+  <!-- =====================================================
        TRENDING
-  ========================== -->
+  ===================================================== -->
 
-  <section class="section" id="trending">
+  <section
+    class="section"
+    id="trending"
+  >
 
-    <div class="section-header">
+    <div class="section-head">
+
       <h2 class="section-title">
         Trending <span>Now</span>
       </h2>
 
-      <span class="view-all">
-        Explore all →
-      </span>
-    </div>
-
-    <div class="movie-row">
-
-      <div
-        class="movie-card"
-        data-title="Inception"
-        data-genre="Action Sci-Fi Thriller"
-        onclick="openMovie(
-          'Inception',
-          '8.8',
-          '2010',
-          '2h 28m',
-          'Sci-Fi',
-          'A skilled thief who steals secrets through dream-sharing technology is given a chance to erase his past.'
-        )"
+      <a
+        class="view-all"
+        href="#movies"
       >
-        <img
-          class="movie-poster"
-          src="images/inception.jpg"
-          alt="Inception poster"
-          onerror="posterError(this,'INCEPTION')"
-        >
-
-        <span class="badge">TRENDING</span>
-
-        <div class="movie-overlay">
-          <div class="movie-info">
-            <div class="movie-title">Inception</div>
-
-            <div class="movie-meta">
-              <span class="movie-rating">★ 8.8</span>
-              <span>2010</span>
-              <span>Sci-Fi</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div
-        class="movie-card"
-        data-title="Interstellar"
-        data-genre="Adventure Drama Sci-Fi"
-        onclick="openMovie(
-          'Interstellar',
-          '8.7',
-          '2014',
-          '2h 49m',
-          'Sci-Fi',
-          'Explorers travel through a wormhole in space in an attempt to ensure humanitys survival.'
-        )"
-      >
-        <img
-          class="movie-poster"
-          src="images/interstellar.jpg"
-          alt="Interstellar poster"
-          onerror="posterError(this,'INTERSTELLAR')"
-        >
-
-        <span class="badge">POPULAR</span>
-
-        <div class="movie-overlay">
-          <div class="movie-info">
-            <div class="movie-title">Interstellar</div>
-
-            <div class="movie-meta">
-              <span class="movie-rating">★ 8.7</span>
-              <span>2014</span>
-              <span>Sci-Fi</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div
-        class="movie-card"
-        data-title="The Dark Knight"
-        data-genre="Action Crime Drama"
-        onclick="openMovie(
-          'The Dark Knight',
-          '9.0',
-          '2008',
-          '2h 32m',
-          'Action',
-          'Batman faces a criminal mastermind who pushes Gotham and its heroes toward chaos.'
-        )"
-      >
-        <img
-          class="movie-poster"
-          src="images/the-dark-knight.jpg"
-          alt="The Dark Knight poster"
-          onerror="posterError(this,'THE DARK KNIGHT')"
-        >
-
-        <span class="badge">TOP RATED</span>
-
-        <div class="movie-overlay">
-          <div class="movie-info">
-            <div class="movie-title">The Dark Knight</div>
-
-            <div class="movie-meta">
-              <span class="movie-rating">★ 9.0</span>
-              <span>2008</span>
-              <span>Action</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div
-        class="movie-card"
-        data-title="Avatar"
-        data-genre="Adventure Fantasy Sci-Fi"
-        onclick="openMovie(
-          'Avatar',
-          '7.9',
-          '2009',
-          '2h 42m',
-          'Fantasy',
-          'A former Marine becomes part of an extraordinary world on a distant moon.'
-        )"
-      >
-        <img
-          class="movie-poster"
-          src="images/avatar.jpg"
-          alt="Avatar poster"
-          onerror="posterError(this,'AVATAR')"
-        >
-
-        <span class="badge">FEATURED</span>
-
-        <div class="movie-overlay">
-          <div class="movie-info">
-            <div class="movie-title">Avatar</div>
-
-            <div class="movie-meta">
-              <span class="movie-rating">★ 7.9</span>
-              <span>2009</span>
-              <span>Fantasy</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div
-        class="movie-card"
-        data-title="The Matrix"
-        data-genre="Action Sci-Fi"
-        onclick="openMovie(
-          'The Matrix',
-          '8.7',
-          '1999',
-          '2h 16m',
-          'Sci-Fi',
-          'A computer hacker discovers that reality is not what it seems and joins a rebellion against the machines.'
-        )"
-      >
-        <img
-          class="movie-poster"
-          src="images/the-matrix.jpg"
-          alt="The Matrix poster"
-          onerror="posterError(this,'THE MATRIX')"
-        >
-
-        <span class="badge">CLASSIC</span>
-
-        <div class="movie-overlay">
-          <div class="movie-info">
-            <div class="movie-title">The Matrix</div>
-
-            <div class="movie-meta">
-              <span class="movie-rating">★ 8.7</span>
-              <span>1999</span>
-              <span>Sci-Fi</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- =========================
-       MOVIES
-  ========================== -->
-
-  <section class="section" id="movies">
-
-    <div class="section-header">
-
-      <h2 class="section-title">
-        Popular <span>Movies</span>
-      </h2>
-
-      <span class="view-all">
-        See all →
-      </span>
+        View All →
+      </a>
 
     </div>
 
 
     <div class="movie-row">
 
+
       <div
         class="movie-card"
-        data-title="Gladiator"
-        data-genre="Action Drama History"
-        onclick="openMovie(
-          'Gladiator',
-          '8.5',
-          '2000',
-          '2h 35m',
-          'Drama',
-          'A Roman general is forced into the arena and fights for his freedom and revenge.'
-        )"
+        onclick="openMovie('The Last Journey')"
       >
-        <img
-          class="movie-poster"
-          src="images/gladiator.jpg"
-          alt="Gladiator poster"
-          onerror="posterError(this,'GLADIATOR')"
-        >
 
-        <div class="movie-overlay">
-          <div class="movie-info">
-            <div class="movie-title">Gladiator</div>
-
-            <div class="movie-meta">
-              <span class="movie-rating">★ 8.5</span>
-              <span>2000</span>
-              <span>Drama</span>
-            </div>
-          </div>
+        <div class="poster-placeholder">
+          <span class="poster-number">
+            01
+          </span>
         </div>
+
+        <div class="movie-info">
+
+          <div class="movie-title">
+            The Last Journey
+          </div>
+
+          <div class="movie-meta">
+            <span>
+              2026 • Action
+            </span>
+
+            <span class="movie-rating">
+              ★ 8.9
+            </span>
+          </div>
+
+        </div>
+
       </div>
 
 
       <div
         class="movie-card"
-        data-title="Titanic"
-        data-genre="Romance Drama"
-        onclick="openMovie(
-          'Titanic',
-          '7.9',
-          '1997',
-          '3h 14m',
-          'Romance',
-          'Two people from different worlds find each other aboard a legendary voyage.'
-        )"
+        onclick="openMovie('Midnight City')"
       >
-        <img
-          class="movie-poster"
-          src="images/titanic.jpg"
-          alt="Titanic poster"
-          onerror="posterError(this,'TITANIC')"
-        >
 
-        <div class="movie-overlay">
-          <div class="movie-info">
-            <div class="movie-title">Titanic</div>
-
-            <div class="movie-meta">
-              <span class="movie-rating">★ 7.9</span>
-              <span>1997</span>
-              <span>Romance</span>
-            </div>
-          </div>
+        <div class="poster-placeholder">
+          <span class="poster-number">
+            02
+          </span>
         </div>
+
+        <div class="movie-info">
+
+          <div class="movie-title">
+            Midnight City
+          </div>
+
+          <div class="movie-meta">
+            <span>
+              2026 • Thriller
+            </span>
+
+            <span class="movie-rating">
+              ★ 8.7
+            </span>
+          </div>
+
+        </div>
+
       </div>
 
 
       <div
         class="movie-card"
-        data-title="Joker"
-        data-genre="Crime Drama Thriller"
-        onclick="openMovie(
-          'Joker',
-          '8.3',
-          '2019',
-          '2h 2m',
-          'Drama',
-          'A troubled man faces a harsh city and slowly becomes a symbol of chaos.'
-        )"
+        onclick="openMovie('Beyond Time')"
       >
-        <img
-          class="movie-poster"
-          src="images/joker.jpg"
-          alt="Joker poster"
-          onerror="posterError(this,'JOKER')"
-        >
 
-        <div class="movie-overlay">
-          <div class="movie-info">
-            <div class="movie-title">Joker</div>
-
-            <div class="movie-meta">
-              <span class="movie-rating">★ 8.3</span>
-              <span>2019</span>
-              <span>Drama</span>
-            </div>
-          </div>
+        <div class="poster-placeholder">
+          <span class="poster-number">
+            03
+          </span>
         </div>
+
+        <div class="movie-info">
+
+          <div class="movie-title">
+            Beyond Time
+          </div>
+
+          <div class="movie-meta">
+            <span>
+              2026 • Sci-Fi
+            </span>
+
+            <span class="movie-rating">
+              ★ 8.6
+            </span>
+          </div>
+
+        </div>
+
       </div>
 
 
       <div
         class="movie-card"
-        data-title="Dune"
-        data-genre="Adventure Drama Sci-Fi"
-        onclick="openMovie(
-          'Dune',
-          '8.0',
-          '2021',
-          '2h 35m',
-          'Sci-Fi',
-          'A young heir must travel to a dangerous desert world and face a destiny larger than himself.'
-        )"
+        onclick="openMovie('Dark Horizon')"
       >
-        <img
-          class="movie-poster"
-          src="images/dune.jpg"
-          alt="Dune poster"
-          onerror="posterError(this,'DUNE')"
-        >
 
-        <div class="movie-overlay">
-          <div class="movie-info">
-            <div class="movie-title">Dune</div>
-
-            <div class="movie-meta">
-              <span class="movie-rating">★ 8.0</span>
-              <span>2021</span>
-              <span>Sci-Fi</span>
-            </div>
-          </div>
+        <div class="poster-placeholder">
+          <span class="poster-number">
+            04
+          </span>
         </div>
+
+        <div class="movie-info">
+
+          <div class="movie-title">
+            Dark Horizon
+          </div>
+
+          <div class="movie-meta">
+            <span>
+              2026 • Drama
+            </span>
+
+            <span class="movie-rating">
+              ★ 8.5
+            </span>
+          </div>
+
+        </div>
+
       </div>
 
 
       <div
         class="movie-card"
-        data-title="John Wick"
-        data-genre="Action Thriller"
-        onclick="openMovie(
-          'John Wick',
-          '7.4',
-          '2014',
-          '1h 41m',
-          'Action',
-          'A legendary assassin returns to the world he left behind after a personal loss.'
-        )"
+        onclick="openMovie('Empire')"
       >
-        <img
-          class="movie-poster"
-          src="images/john-wick.jpg"
-          alt="John Wick poster"
-          onerror="posterError(this,'JOHN WICK')"
-        >
 
-        <div class="movie-overlay">
-          <div class="movie-info">
-            <div class="movie-title">John Wick</div>
-
-            <div class="movie-meta">
-              <span class="movie-rating">★ 7.4</span>
-              <span>2014</span>
-              <span>Action</span>
-            </div>
-          </div>
+        <div class="poster-placeholder">
+          <span class="poster-number">
+            05
+          </span>
         </div>
+
+        <div class="movie-info">
+
+          <div class="movie-title">
+            Empire
+          </div>
+
+          <div class="movie-meta">
+            <span>
+              2026 • Adventure
+            </span>
+
+            <span class="movie-rating">
+              ★ 8.4
+            </span>
+          </div>
+
+        </div>
+
       </div>
 
     </div>
+
   </section>
 
 
-  <!-- =========================
+  <!-- =====================================================
        FEATURE
-  ========================== -->
+  ===================================================== -->
 
   <section class="feature">
 
     <div class="feature-content">
 
       <div class="feature-label">
-        RAJ MOVIES ORIGINAL
+        PREMIUM COLLECTION
       </div>
 
       <h2>
-        THE FORGOTTEN CODE
+        YOUR<br>
+        CINEMA.
       </h2>
 
       <p>
-        An encrypted message. A missing scientist. And a secret
-        buried for decades. Discover the mystery behind the code.
+        A clean and powerful movie platform structure.
+        Images, movie data and real licensed content will be
+        connected later.
       </p>
 
       <button
-        class="btn btn-primary"
-        onclick="openMovie(
-          'The Forgotten Code',
-          '8.6',
-          '2026',
-          '2h 04m',
-          'Thriller',
-          'An encrypted message leads a young investigator into a mystery buried for decades.'
-        )"
+        class="btn btn-red"
+        onclick="document.getElementById('movies').scrollIntoView({behavior:'smooth'})"
       >
-        More Information
+        Explore Movies
       </button>
 
     </div>
@@ -1557,48 +1727,191 @@
   </section>
 
 
-  <!-- =========================
-       GENRES
-  ========================== -->
+  <!-- =====================================================
+       MOVIES
+  ===================================================== -->
 
-  <section class="section" id="genres">
+  <section
+    class="section"
+    id="movies"
+  >
 
-    <div class="section-header">
+    <div class="section-head">
 
       <h2 class="section-title">
-        Browse by <span>Genre</span>
+        Popular <span>Movies</span>
       </h2>
+
+      <a
+        class="view-all"
+        href="#home"
+      >
+        Back to Top ↑
+      </a>
 
     </div>
 
-    <div class="genre-row">
+
+    <div class="movie-row">
+
 
       <div
-        class="genre"
-        onclick="filterGenre('Action')"
+        class="movie-card"
+        onclick="openMovie('Neon Nights')"
       >
-        <strong>Action</strong>
+
+        <div class="poster-placeholder">
+          <span class="poster-number">
+            06
+          </span>
+        </div>
+
+        <div class="movie-info">
+
+          <div class="movie-title">
+            Neon Nights
+          </div>
+
+          <div class="movie-meta">
+            <span>
+              2026 • Crime
+            </span>
+
+            <span class="movie-rating">
+              ★ 8.3
+            </span>
+          </div>
+
+        </div>
+
       </div>
 
-      <div
-        class="genre"
-        onclick="filterGenre('Sci-Fi')"
-      >
-        <strong>Sci-Fi</strong>
-      </div>
 
       <div
-        class="genre"
-        onclick="filterGenre('Drama')"
+        class="movie-card"
+        onclick="openMovie('Final Code')"
       >
-        <strong>Drama</strong>
+
+        <div class="poster-placeholder">
+          <span class="poster-number">
+            07
+          </span>
+        </div>
+
+        <div class="movie-info">
+
+          <div class="movie-title">
+            Final Code
+          </div>
+
+          <div class="movie-meta">
+            <span>
+              2026 • Sci-Fi
+            </span>
+
+            <span class="movie-rating">
+              ★ 8.8
+            </span>
+          </div>
+
+        </div>
+
       </div>
 
+
       <div
-        class="genre"
-        onclick="filterGenre('Romance')"
+        class="movie-card"
+        onclick="openMovie('Lost World')"
       >
-        <strong>Romance</strong>
+
+        <div class="poster-placeholder">
+          <span class="poster-number">
+            08
+          </span>
+        </div>
+
+        <div class="movie-info">
+
+          <div class="movie-title">
+            Lost World
+          </div>
+
+          <div class="movie-meta">
+            <span>
+              2026 • Adventure
+            </span>
+
+            <span class="movie-rating">
+              ★ 8.2
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="movie-card"
+        onclick="openMovie('Silent Love')"
+      >
+
+        <div class="poster-placeholder">
+          <span class="poster-number">
+            09
+          </span>
+        </div>
+
+        <div class="movie-info">
+
+          <div class="movie-title">
+            Silent Love
+          </div>
+
+          <div class="movie-meta">
+            <span>
+              2026 • Romance
+            </span>
+
+            <span class="movie-rating">
+              ★ 8.1
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="movie-card"
+        onclick="openMovie('The Escape')"
+      >
+
+        <div class="poster-placeholder">
+          <span class="poster-number">
+            10
+          </span>
+        </div>
+
+        <div class="movie-info">
+
+          <div class="movie-title">
+            The Escape
+          </div>
+
+          <div class="movie-meta">
+            <span>
+              2026 • Action
+            </span>
+
+            <span class="movie-rating">
+              ★ 8.5
+            </span>
+          </div>
+
+        </div>
+
       </div>
 
     </div>
@@ -1606,73 +1919,102 @@
   </section>
 
 
-  <!-- =========================
+  <!-- =====================================================
+       GENRES
+  ===================================================== -->
+
+  <section
+    class="section"
+    id="genres"
+  >
+
+    <div class="section-head">
+
+      <h2 class="section-title">
+        Browse by <span>Genre</span>
+      </h2>
+
+    </div>
+
+
+    <div class="genre-grid">
+
+      <button
+        class="genre"
+        onclick="showToast('Action selected')"
+      >
+        ⚡ Action
+      </button>
+
+      <button
+        class="genre"
+        onclick="showToast('Drama selected')"
+      >
+        🎭 Drama
+      </button>
+
+      <button
+        class="genre"
+        onclick="showToast('Thriller selected')"
+      >
+        🔥 Thriller
+      </button>
+
+      <button
+        class="genre"
+        onclick="showToast('Romance selected')"
+      >
+        ❤️ Romance
+      </button>
+
+      <button
+        class="genre"
+        onclick="showToast('Sci-Fi selected')"
+      >
+        🚀 Sci-Fi
+      </button>
+
+      <button
+        class="genre"
+        onclick="showToast('Adventure selected')"
+      >
+        🌎 Adventure
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
        FOOTER
-  ========================== -->
+  ===================================================== -->
 
   <footer>
 
-    <strong>RAJ MOVIES</strong>
+    <strong>
+      RAJ <span>MOVIES</span>
+    </strong>
 
-    <p>
-      Premium cinematic movie discovery.
-    </p>
+    <br><br>
 
-    <p>
-      © 2026 Raj Movies
-    </p>
+    Premium cinematic movie platform.
+
+    <br><br>
+
+    © 2026 RAJ MOVIES
 
   </footer>
 
 
-  <!-- =========================
-       SEARCH PANEL
-  ========================== -->
-
-  <div
-    class="search-panel"
-    id="searchPanel"
-  >
-
-    <div class="search-box">
-
-      <div class="search-top">
-
-        <input
-          type="text"
-          id="searchInput"
-          class="search-input"
-          placeholder="Search movies..."
-          autocomplete="off"
-        >
-
-        <button
-          class="close-search"
-          onclick="closeSearch()"
-        >
-          ×
-        </button>
-
-      </div>
-
-      <div
-        class="search-results"
-        id="searchResults"
-      ></div>
-
-    </div>
-
-  </div>
-
-
-  <!-- =========================
+  <!-- =====================================================
        MOVIE MODAL
-  ========================== -->
+  ===================================================== -->
 
   <div
     class="modal"
     id="movieModal"
-    onclick="closeModalOutside(event)"
+    onclick="closeOutside(event)"
   >
 
     <div class="modal-box">
@@ -1681,100 +2023,104 @@
         class="modal-close"
         onclick="closeMovie()"
       >
-        ×
+        ✕
       </button>
+
 
       <div class="modal-content">
 
-        <div class="modal-poster">
 
-          <div
-            class="poster-fallback"
-            id="modalFallback"
-          >
-            <div>
-              <strong id="modalPosterText">
-                MOVIE
-              </strong>
-              <small>RAJ MOVIES</small>
-            </div>
-          </div>
-
+        <div
+          class="modal-poster"
+          id="modalPoster"
+        >
+          RAJ
         </div>
+
 
         <div class="modal-info">
 
+          <div class="modal-label">
+            RAJ MOVIES
+          </div>
+
           <h2 id="modalTitle">
-            Movie
+            The Last Journey
           </h2>
 
-          <div class="modal-meta">
+          <div class="hero-meta">
 
-            <span
-              class="movie-rating"
-              id="modalRating"
-            >
-              ★ 8.0
+            <span class="rating">
+              ★ 8.9
             </span>
 
-            <span id="modalYear">
+            <span>
               2026
             </span>
 
-            <span id="modalDuration">
-              2h
+            <span>
+              2h 18m
             </span>
 
-            <span id="modalGenre">
-              Action
+            <span>
+              HD
             </span>
 
           </div>
 
-          <p
-            class="modal-description"
-            id="modalDescription"
-          >
-            Movie description.
-          </p>
 
           <div class="tags">
-
-            <span class="tag">
-              HD
-            </span>
 
             <span class="tag">
               Premium
             </span>
 
             <span class="tag">
-              Cinematic
+              HD
+            </span>
+
+            <span class="tag">
+              Action
+            </span>
+
+            <span class="tag">
+              16+
             </span>
 
           </div>
 
-          <div class="hero-buttons">
+
+          <p class="modal-description">
+
+            Movie details will be connected here.
+            This structure is ready for licensed movie
+            information, trailer and streaming links.
+
+          </p>
+
+
+          <div class="modal-buttons">
 
             <button
-              class="btn btn-primary"
-              onclick="showToast('Official/licensed trailer player will be connected here.')"
+              class="btn btn-red"
+              onclick="showToast('Trailer section ready')"
             >
               ▶ Watch Trailer
             </button>
-            <button
-  class="btn btn-primary"
-  onclick="showToast('Watch feature ready — licensed movie link will be connected here.')"
->
-  ▶ Watch Movie
-</button>
 
-<button
-  class="btn btn-dark"
-  onclick="showToast('Download feature ready — licensed download link will be connected here.')"
->
-  ⬇ Download
-</button>
+            <button
+              class="btn btn-white"
+              onclick="showToast('Movie player ready')"
+            >
+              ▶ Watch Movie
+            </button>
+
+            <button
+              class="btn btn-dark"
+              onclick="showToast('Download section ready')"
+            >
+              ↓ Download
+            </button>
 
             <button
               class="btn btn-dark"
@@ -1794,386 +2140,485 @@
   </div>
 
 
-  <!-- =========================
+  <!-- =====================================================
+       SEARCH
+  ===================================================== -->
+
+  <div
+    class="search-overlay"
+    id="searchOverlay"
+  >
+
+    <div class="search-container">
+
+      <div class="search-top">
+
+        <input
+          class="search-input"
+          id="searchInput"
+          type="text"
+          placeholder="Search movies..."
+        />
+
+        <button
+          class="search-close"
+          onclick="closeSearch()"
+        >
+          ✕
+        </button>
+
+      </div>
+
+      <div
+        class="search-results"
+        id="searchResults"
+      ></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
        TOAST
-  ========================== -->
+  ===================================================== -->
 
   <div
     class="toast"
     id="toast"
-  >
-    Done
-  </div>
+  ></div>
 
+
+  <!-- =====================================================
+       JAVASCRIPT
+  ===================================================== -->
 
   <script>
 
-    /* =========================
+    let currentMovie = "";
+
+    /* =====================================================
        NAVBAR SCROLL
-    ========================== */
+    ===================================================== */
 
-    const navbar = document.getElementById("navbar");
+    window.addEventListener("scroll", function () {
 
-    window.addEventListener("scroll", () => {
+      const navbar =
+        document.getElementById("navbar");
 
-      if (window.scrollY > 30) {
+      if (window.scrollY > 40) {
+
         navbar.classList.add("scrolled");
+
       } else {
+
         navbar.classList.remove("scrolled");
+
       }
 
     });
 
 
-    /* =========================
-       POSTER FALLBACK
-    ========================== */
-
-    function posterError(img, title) {
-
-      const parent = img.parentElement;
-
-      img.style.display = "none";
-
-      const fallback = document.createElement("div");
-
-      fallback.className = "poster-fallback";
-
-      fallback.innerHTML = `
-        <div>
-          <strong>${title}</strong>
-          <small>RAJ MOVIES</small>
-        </div>
-      `;
-
-      parent.prepend(fallback);
-    }
-
-
-    /* =========================
+    /* =====================================================
        MOVIE MODAL
-    ========================== */
+    ===================================================== */
 
-    let currentMovie = "";
-
-    function openMovie(
-      title,
-      rating,
-      year,
-      duration,
-      genre,
-      description
-    ) {
+    function openMovie(title) {
 
       currentMovie = title;
 
-      document.getElementById("modalTitle").textContent = title;
+      document.getElementById(
+        "modalTitle"
+      ).textContent = title;
 
-      document.getElementById("modalRating").textContent =
-        "★ " + rating;
-
-      document.getElementById("modalYear").textContent =
-        year;
-
-      document.getElementById("modalDuration").textContent =
-        duration;
-
-      document.getElementById("modalGenre").textContent =
-        genre;
-
-      document.getElementById("modalDescription").textContent =
-        description;
-
-      document.getElementById("modalPosterText").textContent =
-        title.toUpperCase();
-
-      document.getElementById("movieModal")
-        .classList.add("active");
+      document.getElementById(
+        "movieModal"
+      ).classList.add("active");
 
       document.body.style.overflow = "hidden";
+
     }
 
 
     function closeMovie() {
 
-      document.getElementById("movieModal")
-        .classList.remove("active");
+      document.getElementById(
+        "movieModal"
+      ).classList.remove("active");
 
       document.body.style.overflow = "";
+
     }
 
 
-    function closeModalOutside(event) {
+    function closeOutside(event) {
 
-      if (event.target.id === "movieModal") {
+      if (
+        event.target.id === "movieModal"
+      ) {
+
         closeMovie();
+
       }
 
     }
 
 
-    /* =========================
+    /* =====================================================
        SEARCH
-    ========================== */
+    ===================================================== */
 
     function openSearch() {
 
-      const panel =
-        document.getElementById("searchPanel");
-
-      panel.classList.add("active");
+      document.getElementById(
+        "searchOverlay"
+      ).classList.add("active");
 
       document.body.style.overflow = "hidden";
 
-      setTimeout(() => {
+      document.getElementById(
+        "searchInput"
+      ).focus();
 
-        document.getElementById("searchInput").focus();
-
-        showAllSearchResults();
-
-      }, 100);
+      showSearchResults();
 
     }
 
 
     function closeSearch() {
 
-      document.getElementById("searchPanel")
-        .classList.remove("active");
+      document.getElementById(
+        "searchOverlay"
+      ).classList.remove("active");
 
       document.body.style.overflow = "";
 
-      document.getElementById("searchInput").value = "";
-
     }
 
 
-    function getMovieCards() {
-
-      return Array.from(
-        document.querySelectorAll(".movie-card")
-      );
-
-    }
-
-
-    function showAllSearchResults() {
+    function showSearchResults() {
 
       const results =
-        document.getElementById("searchResults");
+        document.getElementById(
+          "searchResults"
+        );
 
-      const cards = getMovieCards();
+      results.innerHTML = `
 
-      results.innerHTML = "";
+        <div class="search-result"
+             onclick="openMovie('The Last Journey'); closeSearch();">
 
-      cards.forEach(card => {
+          <div>
+            <strong>
+              The Last Journey
+            </strong>
 
-        createSearchResult(card, results);
+            <br>
 
-      });
+            <small>
+              Action • 2026
+            </small>
+          </div>
 
-    }
+          <span>›</span>
 
-
-    function createSearchResult(card, results) {
-
-      const title =
-        card.dataset.title;
-
-      const genre =
-        card.dataset.genre;
-
-      const item =
-        document.createElement("div");
-
-      item.className = "search-result";
-
-      item.innerHTML = `
-        <div>
-          <strong>${title}</strong>
-          <br>
-          <small>${genre}</small>
         </div>
 
-        <span>›</span>
+
+        <div class="search-result"
+             onclick="openMovie('Midnight City'); closeSearch();">
+
+          <div>
+            <strong>
+              Midnight City
+            </strong>
+
+            <br>
+
+            <small>
+              Thriller • 2026
+            </small>
+          </div>
+
+          <span>›</span>
+
+        </div>
+
+
+        <div class="search-result"
+             onclick="openMovie('Beyond Time'); closeSearch();">
+
+          <div>
+            <strong>
+              Beyond Time
+            </strong>
+
+            <br>
+
+            <small>
+              Sci-Fi • 2026
+            </small>
+          </div>
+
+          <span>›</span>
+
+        </div>
+
       `;
-
-      item.onclick = () => {
-
-        card.click();
-
-        closeSearch();
-
-      };
-
-      results.appendChild(item);
 
     }
 
 
     document
       .getElementById("searchInput")
-      .addEventListener("input", function () {
+      .addEventListener(
+        "input",
+        function () {
 
-        const query =
-          this.value.toLowerCase().trim();
+          const query =
+            this.value
+              .toLowerCase()
+              .trim();
 
-        const results =
-          document.getElementById("searchResults");
-
-        const cards =
-          getMovieCards();
-
-        results.innerHTML = "";
-
-        const matches =
-          cards.filter(card => {
-
-            const title =
-              card.dataset.title.toLowerCase();
-
-            const genre =
-              card.dataset.genre.toLowerCase();
-
-            return (
-              title.includes(query) ||
-              genre.includes(query)
+          const results =
+            document.getElementById(
+              "searchResults"
             );
 
-          });
+          if (!query) {
 
-        if (matches.length === 0) {
+            showSearchResults();
 
-          results.innerHTML = `
-            <div class="no-results">
-              No movies found for "${this.value}"
-            </div>
-          `;
+            return;
 
-          return;
+          }
+
+          const movies = [
+
+            {
+              title: "The Last Journey",
+              genre: "Action"
+            },
+
+            {
+              title: "Midnight City",
+              genre: "Thriller"
+            },
+
+            {
+              title: "Beyond Time",
+              genre: "Sci-Fi"
+            },
+
+            {
+              title: "Dark Horizon",
+              genre: "Drama"
+            },
+
+            {
+              title: "Empire",
+              genre: "Adventure"
+            },
+
+            {
+              title: "Neon Nights",
+              genre: "Crime"
+            },
+
+            {
+              title: "Final Code",
+              genre: "Sci-Fi"
+            },
+
+            {
+              title: "Lost World",
+              genre: "Adventure"
+            },
+
+            {
+              title: "Silent Love",
+              genre: "Romance"
+            },
+
+            {
+              title: "The Escape",
+              genre: "Action"
+            }
+
+          ];
+
+
+          const matches =
+            movies.filter(movie => {
+
+              return (
+                movie.title
+                  .toLowerCase()
+                  .includes(query)
+                ||
+                movie.genre
+                  .toLowerCase()
+                  .includes(query)
+              );
+
+            });
+
+
+          if (!matches.length) {
+
+            results.innerHTML = `
+
+              <div class="search-result">
+
+                No movies found.
+
+              </div>
+
+            `;
+
+            return;
+
+          }
+
+
+          results.innerHTML =
+            matches.map(movie => `
+
+              <div
+                class="search-result"
+                onclick="openMovie('${movie.title}'); closeSearch();"
+              >
+
+                <div>
+
+                  <strong>
+                    ${movie.title}
+                  </strong>
+
+                  <br>
+
+                  <small>
+                    ${movie.genre} • 2026
+                  </small>
+
+                </div>
+
+                <span>
+                  ›
+                </span>
+
+              </div>
+
+            `).join("");
+
         }
-
-        matches.forEach(card => {
-
-          createSearchResult(card, results);
-
-        });
-
-      });
+      );
 
 
-    /* =========================
-       GENRE FILTER
-    ========================== */
+    /* =====================================================
+       MY LIST
+    ===================================================== */
 
-    function filterGenre(genre) {
+    function addToList() {
 
-      const cards =
-        getMovieCards();
+      if (!currentMovie) {
 
-      cards.forEach(card => {
+        showToast("Select a movie first");
 
-        const genres =
-          card.dataset.genre.toLowerCase();
+        return;
 
-        if (genres.includes(genre.toLowerCase())) {
+      }
 
-          card.style.display = "";
 
-        } else {
+      let list =
+        JSON.parse(
+          localStorage.getItem(
+            "rajMoviesList"
+          ) || "[]"
+        );
 
-          card.style.display = "none";
 
-        }
+      if (
+        list.includes(currentMovie)
+      ) {
 
-      });
+        showToast(
+          currentMovie +
+          " is already in My List"
+        );
 
-      document
-        .getElementById("movies")
-        .scrollIntoView({
-          behavior: "smooth"
-        });
+        return;
+
+      }
+
+
+      list.push(currentMovie);
+
+
+      localStorage.setItem(
+        "rajMoviesList",
+        JSON.stringify(list)
+      );
+
 
       showToast(
-        genre + " movies selected"
+        currentMovie +
+        " added to My List ✓"
       );
 
     }
 
 
-    /* =========================
-       MY LIST
-    ========================== */
-
-    function addToList() {
-
-      if (!currentMovie) return;
-
-      let list =
-        JSON.parse(
-          localStorage.getItem("rajMoviesList") || "[]"
-        );
-
-      if (!list.includes(currentMovie)) {
-
-        list.push(currentMovie);
-
-        localStorage.setItem(
-          "rajMoviesList",
-          JSON.stringify(list)
-        );
-
-        showToast(
-          currentMovie + " added to My List ✓"
-        );
-
-      } else {
-
-        showToast(
-          currentMovie + " is already in My List"
-        );
-
-      }
-
-    }
-
-
-    /* =========================
+    /* =====================================================
        TOAST
-    ========================== */
+    ===================================================== */
 
     let toastTimer;
 
     function showToast(message) {
 
       const toast =
-        document.getElementById("toast");
+        document.getElementById(
+          "toast"
+        );
 
-      toast.textContent = message;
+      toast.textContent =
+        message;
 
-      toast.classList.add("show");
+      toast.classList.add(
+        "show"
+      );
 
-      clearTimeout(toastTimer);
+      clearTimeout(
+        toastTimer
+      );
 
       toastTimer =
-        setTimeout(() => {
+        setTimeout(
+          function () {
 
-          toast.classList.remove("show");
+            toast.classList.remove(
+              "show"
+            );
 
-        }, 2600);
+          },
+          2500
+        );
 
     }
 
 
-    /* =========================
-       ESC KEY
-    ========================== */
+    /* =====================================================
+       ESCAPE KEY
+    ===================================================== */
 
     document.addEventListener(
       "keydown",
-      function(event) {
+      function (event) {
 
-        if (event.key === "Escape") {
+        if (
+          event.key === "Escape"
+        ) {
 
           closeMovie();
           closeSearch();
